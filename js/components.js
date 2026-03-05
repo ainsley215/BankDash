@@ -205,7 +205,7 @@ const BankDash = {
         const path = window.location.pathname.toLowerCase();
         let activeMenu = 'dashboard';
 
-        if (path.includes('transactions')) activeMenu = 'transactions';
+        if (path.includes('transactions')) activeMenu = 'index';
         else if (path.includes('accounts')) activeMenu = 'accounts';
         else if (path.includes('investments')) activeMenu = 'investments';
         else if (path.includes('credit-cards')) activeMenu = 'credit-cards';
