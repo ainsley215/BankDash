@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bankku - Setting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            visibility: hidden;
+        }
+    </style>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F7FA;
+        }
+
+        .tab-active {
+            color: #1814F3;
+            border-bottom: 3px solid #1814F3;
+        }
+
+        .tab-inactive {
+            color: #718EBF;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="flex min-h-screen">
+
+    <div id="sidebar-container"></div>
+
+    <div class="flex-1">
+        <div id="header-container"></div>
+
+        <main class="p-8">
+            <div class="bg-white rounded-[25px] p-8 shadow-sm border border-[#DFEAF2] min-h-[600px]">
+
+                <div class="flex gap-12 border-b border-[#F4F5F7] mb-10">
+                    <button onclick="switchTab('edit-profile')" id="tab-edit-profile"
+                        class="pb-3 text-[16px] font-medium tab-active transition-all">
+                        Edit Profile
+                    </button>
+                    <button onclick="switchTab('preferences')" id="tab-preferences"
+                        class="pb-3 text-[16px] font-medium tab-inactive transition-all hover:text-[#1814F3]">
+                        Preferences
+                    </button>
+                    <button onclick="switchTab('security')" id="tab-security"
+                        class="pb-3 text-[16px] font-medium tab-inactive transition-all hover:text-[#1814F3]">
+                        Security
+                    </button>
+                </div>
+
+                <div id="setting-content">
+
+                    <div id="content-edit-profile" class="tab-content">
+                        <div class="flex flex-col lg:flex-row gap-12">
+                            <div class="relative w-[130px] h-[130px] flex-shrink-0">
+                                <!-- Ganti dengan icon dari folder imgs/icon -->
+                                <img src="/imgs/icons/photo-profile.png" class="w-full h-full rounded-full object-cover"
+                                    alt="Profile">
+
+                                <!-- Tombol edit dengan icon pensil -->
+                                <button
+                                    class="absolute bottom-1 right-1 bg-[#1814F3] p-2 rounded-full border-[3px] border-white">
+                                    <img src="/imgs/icons/edit-pencil.png" class="w-4 h-4" alt="Edit">
+                                </button>
+                            </div>
+                            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">Your Name</label>
+                                    <input type="text" value="Charlene Reed"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF] focus:outline-none focus:border-[#1814F3]">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">User Name</label>
+                                    <input type="text" value="Charlene Reed"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">Email</label>
+                                    <input type="email" value="charlenereed@gmail.com"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">Password</label>
+                                    <input type="password" value="**********"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">Date of Birth</label>
+                                    <div class="relative">
+                                        <select
+                                            class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF] appearance-none w-full">
+                                            <option>25 January 1990</option>
+                                        </select>
+                                        <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            <img src="/imgs/icons/drop-down.png" alt="dropdown" class="w-4 h-3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">Present Address</label>
+                                    <input type="text" value="San Jose, California, USA"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">Permanent Address</label>
+                                    <input type="text" value="San Jose, California, USA"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">City</label>
+                                    <input type="text" value="San Jose"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">Postal Code</label>
+                                    <input type="text" value="45962"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">Country</label>
+                                    <input type="text" value="USA"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="content-preferences" class="tab-content hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-[15px] text-[#333B69]">Currency</label>
+                                <input type="text" value="USD"
+                                    class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-[15px] text-[#333B69]">Time Zone</label>
+                                <input type="text" value="(GMT-12:00) International Date Line West"
+                                    class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <h3 class="text-[17px] font-semibold text-[#333B69] mb-4">Notification</h3>
+                            <div class="flex items-center gap-4">
+                                <div onclick="toggleSwitch(this)"
+                                    class="w-12 h-6 bg-[#16DBCC] rounded-full relative cursor-pointer transition-colors p-1">
+                                    <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
+                                </div>
+                                <span class="text-[15px] text-[#333B69]">I send or receive digital currency</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div onclick="toggleSwitch(this)"
+                                    class="w-12 h-6 bg-[#CBD5E1] rounded-full relative cursor-pointer transition-colors p-1">
+                                    <div class="w-4 h-4 bg-white rounded-full absolute left-1"></div>
+                                </div>
+                                <span class="text-[15px] text-[#333B69]">I receive merchant order</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div onclick="toggleSwitch(this)"
+                                    class="w-12 h-6 bg-[#16DBCC] rounded-full relative cursor-pointer transition-colors p-1">
+                                    <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
+                                </div>
+                                <span class="text-[15px] text-[#333B69]">There are recommendation for my account</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="content-security" class="tab-content hidden">
+                        <div class="space-y-8">
+                            <div>
+                                <h3 class="text-[17px] font-semibold text-[#333B69] mb-4">Two-factor Authentication</h3>
+                                <div class="flex items-center gap-4">
+                                    <div onclick="toggleSwitch(this)"
+                                        class="w-12 h-6 bg-[#16DBCC] rounded-full relative cursor-pointer transition-colors p-1">
+                                        <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
+                                    </div>
+                                    <span class="text-[15px] text-[#333B69]">Enable or disable two factor
+                                        authentication</span>
+                                </div>
+                            </div>
+                            <div class="space-y-5 max-w-md">
+                                <h3 class="text-[17px] font-semibold text-[#333B69]">Change Password</h3>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">Current Password</label>
+                                    <input type="password" value="**********"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[15px] text-[#333B69]">New Password</label>
+                                    <input type="password" value="**********"
+                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end mt-12">
+                        <button
+                            class="bg-[#1814F3] text-white px-16 py-3.5 rounded-[15px] font-semibold text-[16px] hover:bg-blue-800 transition-all shadow-md">
+                            Save
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function setActive(menuId) {
+            document.querySelectorAll('[data-menu-id]').forEach(item => {
+
+                item.classList.remove(
+                    "text-[#1814F3]",
+                    "bg-[#F0F2F9]"
+                );
+                item.classList.add("text-[#B1B1B1]");
+
+                item.querySelector('.normal-icon')?.classList.remove("hidden");
+                item.querySelector('.active-icon')?.classList.add("hidden");
+                item.querySelector('.active-line')?.classList.add("hidden");
+            });
+
+            const selected = document.querySelector(`[data-menu-id="${menuId}"]`);
+
+            if (selected) {
+                selected.classList.remove("text-[#B1B1B1]");
+                selected.classList.add(
+                    "text-[#1814F3]",
+                    "bg-[#F0F2F9]"
+                );
+
+                selected.querySelector('.normal-icon')?.classList.add("hidden");
+                selected.querySelector('.active-icon')?.classList.remove("hidden");
+                selected.querySelector('.active-line')?.classList.remove("hidden");
+            }
+        }
+
+        Promise.all([
+            fetch('/layouts/header.html').then(res => res.text()),
+            fetch('/layouts/sidebar.html').then(res => res.text())
+        ])
+            .then(([header, sidebar]) => {
+
+                // Inject HTML
+                document.getElementById('header-container').innerHTML = header;
+                document.getElementById('sidebar-container').innerHTML = sidebar;
+
+                // 🔥 Set Active Menu (PENTING setelah inject)
+                setActive('setting');
+
+                // 🔥 Auto Title
+                const path = window.location.pathname.toLowerCase();
+                const pageName = path.split("/").pop().replace(".html", "");
+                const formattedName =
+                    pageName.charAt(0).toUpperCase() + pageName.slice(1);
+
+                const titleElement = document.getElementById('page-title');
+                if (titleElement) {
+                    titleElement.textContent = formattedName;
+                }
+
+                document.title = "BankDash - " + formattedName;
+
+                // 🔥 Tampilkan halaman setelah semua selesai
+                document.body.style.visibility = "visible";
+            });
+    </script>
+
+    <script>
+        function switchTab(tabName) {
+
+            // Reset semua tab button
+            document.querySelectorAll('[id^="tab-"]').forEach(tab => {
+                tab.classList.remove('tab-active');
+                tab.classList.add('tab-inactive');
+            });
+
+            // Sembunyikan semua content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Aktifkan tab yang dipilih
+            const activeTab = document.getElementById('tab-' + tabName);
+            const activeContent = document.getElementById('content-' + tabName);
+
+            if (activeTab && activeContent) {
+                activeTab.classList.remove('tab-inactive');
+                activeTab.classList.add('tab-active');
+
+                activeContent.classList.remove('hidden');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

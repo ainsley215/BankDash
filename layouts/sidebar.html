@@ -1,0 +1,79 @@
+<div class="w-64 bg-white border-r border-[#E6EFF5] flex flex-col relative h-full">
+  <!-- Header -->
+  <div class="pt-8 px-5 pb-5">
+    <div class="flex items-center space-x-2">
+      <img src="/imgs/icons/logo.png" alt="BankDash Logo" class="w-9 h-9 object-contain">
+      <h2 class="text-[25px] font-black text-[#343C6A] font-['Mont',sans-serif]">BankDash<span
+          class="text-[#343C6A]">.</span></h2>
+    </div>
+  </div>
+
+  <!-- Daftar navigasi dengan jarak 16px antar menu -->
+  <nav class="flex-1 py-4 space-y-2 overflow-y-auto">
+    <!-- Dashboard (1 icon, tidak berubah) -->
+    <div class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] cursor-default">
+      <img src="/imgs/icons/dashboard.png" class="w-[25px] h-[25px] mr-3">
+      <span>Dashboard</span>
+    </div>
+
+    <!-- Transactions (2 icon: normal & active) -->
+    <a href="/pages/transactions.html"
+      class="menu-item group flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] rounded-lg hover:bg-gray-100 transition-all relative"
+      data-menu-id="transactions">
+      <span class="active-line absolute left-0 top-0 h-full w-1 bg-[#1814F3] rounded-r-full hidden"></span>
+      <img src="/imgs/icons/transactions.png" class="w-[25px] h-[25px] mr-3 normal-icon">
+      <img src="/imgs/icons/transactions-active.png" class="w-[25px] h-[25px] mr-3 hidden active-icon">
+      <span>Transactions</span>
+    </a>
+
+    <!-- Accounts (2 icon: normal & active) -->
+    <a href="/pages/accounts.html"
+      class="menu-item group flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] rounded-lg hover:bg-gray-100 transition-all relative"
+      data-menu-id="accounts">
+      <span class="active-line absolute left-0 top-0 h-full w-1 bg-[#1814F3] rounded-r-full hidden"></span>
+      <img src="/imgs/icons/accounts.png" alt="Accounts" class="w-[25px] h-[25px] mr-3 normal-icon">
+      <img src="/imgs/icons/accounts-active.png" alt="Accounts" class="w-[25px] h-[25px] mr-3 hidden active-icon">
+      <span class="truncate">Accounts</span>
+    </a>
+
+    <!--investments-->
+    <div class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] cursor-default">
+      <img src="/imgs/icons/investments.png" class="w-[25px] h-[25px] mr-3">
+      <span>Investments</span>
+    </div>
+
+    <!-- Credit Cards-->
+    <div class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] cursor-default">
+      <img src="/imgs/icons/credit-cards.png" class="w-[25px] h-[25px] mr-3">
+      <span>Credit Cards</span>
+    </div>
+
+    <!-- Loans -->
+    <div class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] cursor-default">
+      <img src="/imgs/icons/loans.png" class="w-[25px] h-[25px] mr-3">
+      <span>Loans</span>
+    </div>
+
+    <!-- Services (1 icon) -->
+    <div class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] cursor-default">
+      <img src="/imgs/icons/services.png" class="w-[25px] h-[25px] mr-3">
+      <span>Services</span>
+    </div>
+
+    <!-- My Privileges (1 icon) -->
+    <div class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] cursor-default">
+      <img src="/imgs/icons/my-privileges.png" class="w-[25px] h-[25px] mr-3">
+      <span>My Privileges</span>
+    </div>
+
+    <!-- Setting (2 icon: normal & active) -->
+    <a href="/pages/setting.html"
+      class="menu-item group flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] rounded-lg hover:bg-gray-100 transition-all relative"
+      data-menu-id="setting">
+      <span class="active-line absolute left-0 top-0 h-full w-1 bg-[#1814F3] rounded-r-full hidden"></span>
+      <img src="/imgs/icons/setting.png" class="w-[25px] h-[25px] mr-3 normal-icon">
+      <img src="/imgs/icons/setting-active.png" alt="Setting" class="w-[25px] h-[25px] mr-3 hidden active-icon">
+      <span>Setting</span>
+    </a>
+  </nav>
+</div>

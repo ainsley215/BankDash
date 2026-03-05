@@ -1,0 +1,35 @@
+<!-- <script>
+    function getPageFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("page") || "transactions";
+    }
+
+    async function loadComponent(id, file) {
+        const res = await fetch(file);
+        const data = await res.text();
+        document.getElementById(id).innerHTML = data;
+    }
+
+    async function init() {
+        const page = getPageFromURL();
+
+        await loadComponent("sidebar", "layouts/sidebar.html");
+        await loadComponent("header", "layouts/header.html");
+        await loadComponent("content", `pages/${page}.html`);
+
+        const links = document.querySelectorAll(".menu-item");
+
+        links.forEach(link => {
+            if (link.dataset.page === page) {
+                link.classList.add("text-blue-600", "font-semibold");
+
+                // blue bar
+                const bar = document.createElement("div");
+                bar.className = "absolute left-0 top-0 h-full w-1 bg-blue-600 rounded-r";
+                link.appendChild(bar);
+            }
+        });
+    }
+
+    init();
+</script> -->

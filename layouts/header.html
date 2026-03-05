@@ -1,0 +1,75 @@
+<!-- Header Component -->
+<header class="bg-white border-b border-gray-200 px-6 py-4 w-full">
+    <div class="flex items-center justify-between">
+        <!-- Left Section: Logo & Page Title -->
+        <div class="flex items-center space-x-8">
+            <!-- Page Title / Breadcrumb -->
+            <div class="flex items-center space-x-2">
+                <span id="page-title" 
+                    class="font-medium text-[#343C6A] text-[28px] font-['Inter',sans-serif] font-semibold">
+                </span>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-5">
+
+            <!-- Search Bar -->
+            <div class="flex-none" style="width: 255px;">
+                <div class="relative">
+                    <!-- Search Icon -->
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <img src="/imgs/icons/search.png" alt="Search" class="w-5 h-5">
+                    </div>
+
+                    <!-- Search Input -->
+                    <input type="text" placeholder="Search for something"
+                        class="block w-full pl-10 pr-3 h-[50px] border border-[#F5F7FA] rounded-[25px] bg-[#F5F7FA] focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-[#8BA3CB] placeholder:text-[#8BA3CB] text-[15px] font-['Inter',sans-serif] font-normal">
+                </div>
+            </div>
+
+            <!-- User Actions -->
+            <div class="flex items-center space-x-5">
+                <!-- Setting -->
+                <button
+                    class="p-2 hover:bg-gray-100 rounded-lg transition-colors relative w-[50px] h-[50px] flex items-center justify-center">
+                    <div class="absolute inset-0 bg-[#F5F7FA] rounded-full"></div>
+                    <img src="/imgs/icons/settings-profile.png" alt="Setting" class="w-6 h-6 relative z-10">
+                </button>
+
+                <!-- Notification Bell -->
+                <button
+                    class="p-2 hover:bg-gray-100 rounded-lg transition-colors relative w-[50px] h-[50px] flex items-center justify-center">
+                    <div class="absolute inset-0 bg-[#F5F7FA] rounded-full"></div>
+                    <img src="/imgs/icons/notif.png" alt="Notification" class="w-6 h-6 relative z-10">
+                </button>
+
+                <!-- User Avatar -->
+                <button class="flex items-center space-x-2 hover:bg-gray-100 rounded-lg p-1 transition-colors">
+                    <img src="/imgs/icons/photo-profile.png" alt="User Avatar" class="w-[60px] h-[60px] rounded-full">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Search -->
+    <div class="mt-4 sm:hidden">
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="ph ph-magnifying-glass text-gray-400 text-lg"></i>
+            </div>
+            <input type="text" placeholder="Search for something"
+                class="block w-full pl-10 pr-3 py-2.5 border border-gray-200 rounded-lg bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+    </div>
+</header>
+
+<script>
+    // Keyboard shortcut untuk search (⌘K)
+    document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            const searchInput = document.querySelector('input[type="text"]');
+            if (searchInput) searchInput.focus();
+        }
+    });
+</script>
