@@ -6,19 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BankDash - Transactions</title>
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS & Phosphor Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 
     <style>
-        body {
-            visibility: hidden;
+        /* ===== VARIABLES & RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    </style>
 
-    <style>
-        /* Custom scrollbar styling */
+        body {
+            opacity: 0;
+            overflow: hidden;
+            background-color: #F5F7FA;
+            transition: opacity 300ms ease;
+        }
+
+        /* ===== PAGE TRANSITION OVERLAY ===== */
+        #page-transition-overlay {
+            position: fixed;
+            inset: 0;
+            background: #F5F7FA;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 300ms ease;
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -38,427 +56,699 @@
             background: #a1a1a1;
         }
 
-        /* Pastikan tidak ada margin/padding yang mengganggu */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Hide scrollbar for horizontal scroll on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
 
-        body {
-            overflow: hidden;
-            /* Mencegah scroll di body */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
 
-<body class="bg-gray-50 flex h-screen overflow-hidden">
-    <!-- SIDEBAR - Akan di-load -->
+<body class="flex h-screen overflow-hidden">
+    <!-- SIDEBAR CONTAINER -->
     <div id="sidebar-container" class="h-full flex-shrink-0"></div>
 
-    <!-- MAIN CONTENT - Area kanan -->
+    <!-- MAIN CONTENT -->
     <div class="flex-1 flex flex-col overflow-hidden">
-        <!-- HEADER - Akan di-load -->
+        <!-- HEADER CONTAINER -->
         <div id="header-container" class="flex-shrink-0"></div>
 
-        <!-- MAIN CONTENT - Transactions Page (scrollable) -->
-        <main class="flex-1 overflow-y-auto p-6">
-            <!-- My Cards Section -->
-            <div class="mb-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- PAGE CONTENT -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-5 lg:p-6">
 
-                    <!-- CARD 1 -->
+            <!-- ===== CARDS SECTION ===== -->
+            <section class="mb-6 sm:mb-7 lg:mb-8">
+
+                <!-- DESKTOP/TABLET: Grid Layout -->
+                <div class="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+
+                    <!-- Card 1: Blue Card (dengan judul) -->
                     <div class="flex flex-col">
-                        <div class="flex items-center h-[32px] mb-4">
-                            <h2 class="text-[22px] text-[#343C6A] font-['Inter',sans-serif] hover:text-[#1814F3] transition-colors">
-                            My Expense
+                        <!-- Judul untuk Card 1 -->
+                        <div class="flex items-center h-6 sm:h-7 lg:h-8 mb-2">
+                            <h2
+                                class="text-[22px] text-[#343C6A] font-['Inter',sans-serif] hover:text-[#1814F3] transition-colors">
+                                My Cards
                             </h2>
                         </div>
-
-                        <div
-                            class="w-full min-h-[225px] bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl p-5 shadow-lg flex flex-col justify-between">
-
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <p class="text-xs text-blue-200">Balance</p>
-                                    <p class="text-xl font-bold">$5,756</p>
+                        <div class="w-full min-h-[180px] sm:min-h-[200px] lg:min-h-[225px] 
+                    bg-gradient-to-r from-blue-600 to-blue-700 text-white 
+                    rounded-xl sm:rounded-2xl pt-3 sm:pt-4 lg:pt-5 
+                    flex flex-col justify-between shadow-lg overflow-hidden">
+                            <!-- Konten card 1 (sama) -->
+                            <div class="px-3 sm:px-4 lg:px-5 space-y-4 sm:space-y-6 lg:space-y-8">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-[10px] sm:text-[11px] lg:text-xs text-blue-200">Balance</p>
+                                        <p class="text-base sm:text-lg lg:text-xl font-bold">$5,756</p>
+                                    </div>
+                                    <div class="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 flex items-center justify-center">
+                                        <img src="/imgs/icons/Chip_Card1.png"
+                                            class="w-5 sm:w-6 lg:w-8 h-5 sm:h-6 lg:h-8">
+                                    </div>
                                 </div>
-                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                                    <img src="/imgs/icons/Chip_Card1.png" class="w-5 h-5">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="text-[8px] sm:text-[9px] lg:text-[10px] text-blue-200">CARD HOLDER</p>
+                                        <p class="text-[11px] sm:text-[12px] lg:text-sm font-medium">Eddy Cusuma</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-[8px] sm:text-[9px] lg:text-[10px] text-blue-200">VALID THRU</p>
+                                        <p class="text-[11px] sm:text-[12px] lg:text-sm font-medium">12/22</p>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-[10px] text-blue-200">CARD HOLDER</p>
-                                    <p class="text-sm font-medium">Eddy Cusuma</p>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-blue-200">VALID THRU</p>
-                                    <p class="text-sm font-medium">12/22</p>
-                                </div>
-                            </div>
-
-                            <div class="flex justify-between items-center">
-                                <p class="text-lg tracking-wider">3778 **** **** 1234</p>
+                            <div class="bg-gradient-to-b from-white/15 to-white/5 px-3 sm:px-4 lg:px-5 py-2 sm:py-3 lg:py-4 
+                        flex justify-between items-center border-t border-white/10">
+                                <p class="text-xs sm:text-sm lg:text-lg tracking-wider font-semibold">3778 **** ****
+                                    1234</p>
                                 <div class="flex items-center">
-                                    <div class="w-5 h-5 bg-white/50 rounded-full"></div>
-                                    <div class="w-5 h-5 bg-white/50 rounded-full -ml-3"></div>
+                                    <div class="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-white/40 rounded-full"></div>
+                                    <div
+                                        class="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-white/40 rounded-full -ml-2 sm:-ml-2.5 lg:-ml-3">
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
-                    <!-- CARD 2 -->
-                    <div class="flex flex-col items-end">
-                        <div class="flex items-center h-[32px] mb-4 pt-1">
-                            <h2 class="text-[17px] font-semibold text-[#343C6A] font-['Inter',sans-serif] hover:text-[#1814F3] transition-colors">
-                            + Add Card
+                    <!-- Card 2: White Card (+ Add Card) -->
+                    <div class="flex flex-col">
+                        <!-- Judul untuk Card 2 -->
+                        <div class="flex items-center justify-end mb-2">
+                            <h2
+                                class="text-[17px] sm:text-[15px] lg:text-[17px] font-semibold text-[#343C6A] font-['Inter',sans-serif] hover:text-[#1814F3] transition-colors cursor-pointer py-1">
+                                + Add Card
                             </h2>
                         </div>
-
-                        <div
-                            class="w-full min-h-[225px] bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
-
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <p class="text-xs text-gray-500">Balance</p>
-                                    <p class="text-xl font-bold text-gray-800">$3,250</p>
+                        <div class="w-full min-h-[180px] sm:min-h-[200px] lg:min-h-[225px] 
+                    bg-white border border-[#DFEAF2] 
+                    rounded-xl sm:rounded-2xl pt-3 sm:pt-4 lg:pt-5 
+                    flex flex-col justify-between shadow-sm overflow-hidden">
+                            <!-- Konten card 2 (sama) -->
+                            <div class="px-3 sm:px-4 lg:px-5 space-y-4 sm:space-y-6 lg:space-y-8">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-[10px] sm:text-[11px] lg:text-xs text-[#718EBF]">Balance</p>
+                                        <p class="text-base sm:text-lg lg:text-xl font-bold text-[#343C6A]">$3,250</p>
+                                    </div>
+                                    <div class="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 flex items-center justify-center">
+                                        <img src="/imgs/icons/Chip_Card2.png"
+                                            class="w-5 sm:w-6 lg:w-8 h-5 sm:h-6 lg:h-8">
+                                    </div>
                                 </div>
-                                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                                    <img src="/imgs/icons/Chip_Card2.png" class="w-5 h-5">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="text-[8px] sm:text-[9px] lg:text-[10px] text-[#718EBF]">CARD HOLDER
+                                        </p>
+                                        <p class="text-[11px] sm:text-[12px] lg:text-sm font-semibold text-[#343C6A]">
+                                            John Doe</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-[8px] sm:text-[9px] lg:text-[10px] text-[#718EBF]">VALID THRU</p>
+                                        <p class="text-[11px] sm:text-[12px] lg:text-sm font-semibold text-[#343C6A]">
+                                            09/24</p>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-[10px] text-gray-500">CARD HOLDER</p>
-                                    <p class="text-sm font-medium text-gray-800">John Doe</p>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-500">VALID THRU</p>
-                                    <p class="text-sm font-medium text-gray-800">09/24</p>
-                                </div>
-                            </div>
-
-                            <div class="flex justify-between items-center">
-                                <p class="text-lg tracking-wider text-gray-700">4532 **** **** 5678</p>
+                            <div class="bg-gradient-to-b from-[#F9FAFB]/80 to-[#F3F4F6]/50 px-3 sm:px-4 lg:px-5 py-2 sm:py-3 lg:py-4 
+                        flex justify-between items-center border-t border-[#DFEAF2]">
+                                <p class="text-xs sm:text-sm lg:text-lg tracking-wider font-semibold text-[#343C6A]">
+                                    4532 **** **** 5678
+                                </p>
                                 <div class="flex items-center">
-                                    <div class="w-5 h-5 bg-gray-200 rounded-full"></div>
-                                    <div class="w-5 h-5 bg-gray-200 -ml-3 rounded-full"></div>
+                                    <div class="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-[#9199AF]/30 rounded-full"></div>
+                                    <div
+                                        class="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-[#9199AF]/30 rounded-full -ml-2 sm:-ml-2.5 lg:-ml-3">
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
-                    <!-- CARD 3 -->
+                    <!-- Card 3: My Expense Chart -->
                     <div class="flex flex-col">
-                        <div class="flex items-center h-[32px] mb-4">
+                        <!-- Judul untuk Card 3 -->
+                        <div class="flex items-center h-6 sm:h-7 lg:h-8 mb-2">
                             <h2 class="text-[22px] font-semibold text-[#343C6A]">
                                 My Expense
                             </h2>
                         </div>
-
-                        <div
-                            class="w-full min-h-[225px] bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm flex flex-col justify-end">
-
-                            <div class="flex items-end justify-between h-28">
-
+                        <div class="w-full min-h-[180px] sm:min-h-[200px] lg:min-h-[225px] 
+                    bg-white border border-gray-200 
+                    rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 shadow-sm 
+                    flex flex-col justify-end">
+                            <div class="flex items-end justify-between h-20 sm:h-24 lg:h-28">
+                                <!-- Chart Bars -->
                                 <div class="flex flex-col items-center">
-                                    <div class="w-8 h-[93px] bg-[#EDF0F7] rounded-t-md"></div>
-                                    <span class="text-xs text-gray-500 mt-2">Aug</span>
+                                    <div
+                                        class="w-5 sm:w-6 lg:w-8 h-[50px] sm:h-[65px] lg:h-[93px] bg-[#EDF0F7] rounded-t-md">
+                                    </div>
+                                    <span class="text-[8px] sm:text-[9px] lg:text-xs text-gray-500 mt-1">Aug</span>
                                 </div>
-
                                 <div class="flex flex-col items-center">
-                                    <div class="w-8 h-[142px] bg-[#EDF0F7] rounded-t-md"></div>
-                                    <span class="text-xs text-gray-500 mt-2">Sep</span>
+                                    <div
+                                        class="w-5 sm:w-6 lg:w-8 h-[75px] sm:h-[95px] lg:h-[142px] bg-[#EDF0F7] rounded-t-md">
+                                    </div>
+                                    <span class="text-[8px] sm:text-[9px] lg:text-xs text-gray-500 mt-1">Sep</span>
                                 </div>
-
                                 <div class="flex flex-col items-center">
-                                    <div class="w-8 h-[96px] bg-[#EDF0F7] rounded-t-md"></div>
-                                    <span class="text-xs text-gray-500 mt-2">Oct</span>
+                                    <div
+                                        class="w-5 sm:w-6 lg:w-8 h-[55px] sm:h-[70px] lg:h-[96px] bg-[#EDF0F7] rounded-t-md">
+                                    </div>
+                                    <span class="text-[8px] sm:text-[9px] lg:text-xs text-gray-500 mt-1">Oct</span>
                                 </div>
-
                                 <div class="flex flex-col items-center">
-                                    <div class="w-8 h-[49px] bg-[#EDF0F7] rounded-t-md"></div>
-                                    <span class="text-xs text-gray-500 mt-2">Nov</span>
+                                    <div
+                                        class="w-5 sm:w-6 lg:w-8 h-[30px] sm:h-[40px] lg:h-[49px] bg-[#EDF0F7] rounded-t-md">
+                                    </div>
+                                    <span class="text-[8px] sm:text-[9px] lg:text-xs text-gray-500 mt-1">Nov</span>
                                 </div>
-
                                 <div class="flex flex-col items-center relative">
-                                    <div class="w-8 h-[129px] bg-[#16DBCC] rounded-t-md"></div>
-                                    <span class="absolute -top-6 text-xs font-semibold text-[#343C6A]">
-                                        $12,500
+                                    <div
+                                        class="w-5 sm:w-6 lg:w-8 h-[70px] sm:h-[90px] lg:h-[129px] bg-[#16DBCC] rounded-t-md">
+                                    </div>
+                                    <span
+                                        class="absolute -top-4 sm:-top-5 lg:-top-6 text-[7px] sm:text-[8px] lg:text-xs font-semibold text-[#343C6A]">
+                                        $12.5k
                                     </span>
-                                    <span class="text-xs text-gray-500 mt-2">Dec</span>
+                                    <span class="text-[8px] sm:text-[9px] lg:text-xs text-gray-500 mt-1">Dec</span>
                                 </div>
-
                                 <div class="flex flex-col items-center">
-                                    <div class="w-8 h-[88px] bg-[#EDF0F7] rounded-t-md"></div>
-                                    <span class="text-xs text-gray-500 mt-2">Jan</span>
+                                    <div
+                                        class="w-5 sm:w-6 lg:w-8 h-[45px] sm:h-[60px] lg:h-[88px] bg-[#EDF0F7] rounded-t-md">
+                                    </div>
+                                    <span class="text-[8px] sm:text-[9px] lg:text-xs text-gray-500 mt-1">Jan</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- MOBILE: Horizontal Scroll Layout -->
+                <div class="sm:hidden space-y-4">
+
+                    <!-- Row 1: My Cards & +Add Card -->
+                    <div class="relative">
+                        <div
+                            class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#F5F7FA] to-transparent pointer-events-none z-10">
+                        </div>
+                        <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+
+                            <!-- My Cards Card (Mobile) -->
+                            <div class="flex flex-col min-w-[280px]">
+                                <div class="flex items-center h-6 mb-2">
+                                    <h2 class="text-[16px] font-semibold text-[#343C6A]">My Cards</h2>
+                                </div>
+                                <div
+                                    class="w-full min-h-[180px] bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl pt-3 flex flex-col justify-between shadow-lg overflow-hidden">
+                                    <div class="px-3 space-y-4">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <p class="text-[10px] text-blue-200">Balance</p>
+                                                <p class="text-base font-bold">$5,756</p>
+                                            </div>
+                                            <div class="w-7 h-7 flex items-center justify-center">
+                                                <img src="/imgs/icons/Chip_Card1.png" class="w-5 h-5">
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div>
+                                                <p class="text-[8px] text-blue-200">CARD HOLDER</p>
+                                                <p class="text-[11px] font-medium">Eddy Cusuma</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-[8px] text-blue-200">VALID THRU</p>
+                                                <p class="text-[11px] font-medium">12/22</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="bg-gradient-to-b from-white/15 to-white/5 px-3 py-2 flex justify-between items-center border-t border-white/10">
+                                        <p class="text-xs tracking-wider font-semibold">3778 **** **** 1234</p>
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 bg-white/40 rounded-full"></div>
+                                            <div class="w-4 h-4 bg-white/40 rounded-full -ml-2"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
+                            <!-- +Add Card (Mobile) -->
+                            <div class="flex flex-col min-w-[280px]">
+                                <div class="flex items-center h-6 mb-2 justify-end">
+                                    <h2 class="text-[14px] font-semibold text-[#1814F3] cursor-pointer">+ Add Card</h2>
+                                </div>
+                                <div
+                                    class="w-full min-h-[180px] bg-white border border-[#DFEAF2] rounded-xl pt-3 flex flex-col justify-between shadow-sm overflow-hidden">
+                                    <div class="px-3 space-y-4">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <p class="text-[10px] text-[#718EBF]">Balance</p>
+                                                <p class="text-base font-bold text-[#343C6A]">$3,250</p>
+                                            </div>
+                                            <div class="w-7 h-7 flex items-center justify-center">
+                                                <img src="/imgs/icons/Chip_Card2.png" class="w-5 h-5">
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div>
+                                                <p class="text-[8px] text-[#718EBF]">CARD HOLDER</p>
+                                                <p class="text-[11px] font-semibold text-[#343C6A]">John Doe</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-[8px] text-[#718EBF]">VALID THRU</p>
+                                                <p class="text-[11px] font-semibold text-[#343C6A]">09/24</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="bg-gradient-to-b from-[#F9FAFB]/80 to-[#F3F4F6]/50 px-3 py-2 flex justify-between items-center border-t border-[#DFEAF2]">
+                                        <p class="text-xs tracking-wider font-semibold text-[#343C6A]">4532 **** ****
+                                            5678</p>
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 bg-[#9199AF]/30 rounded-full"></div>
+                                            <div class="w-4 h-4 bg-[#9199AF]/30 rounded-full -ml-2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Row 2: My Expense (Mobile) -->
+                    <div class="relative">
+                        <div
+                            class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#F5F7FA] to-transparent pointer-events-none z-10">
+                        </div>
+                        <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+
+                            <!-- My Expense Card (Mobile) -->
+                            <div class="flex flex-col min-w-[280px]">
+                                <div class="flex items-center h-6 mb-2">
+                                    <h2 class="text-[16px] font-semibold text-[#343C6A]">My Expense</h2>
+                                </div>
+                                <div
+                                    class="w-full min-h-[180px] bg-white border border-gray-200 rounded-xl p-3 shadow-sm flex flex-col justify-end">
+                                    <div class="flex items-end justify-between h-20">
+                                        <!-- Chart Bars (Mobile) -->
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-5 h-[50px] bg-[#EDF0F7] rounded-t-md"></div>
+                                            <span class="text-[8px] text-gray-500 mt-1">Aug</span>
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-5 h-[75px] bg-[#EDF0F7] rounded-t-md"></div>
+                                            <span class="text-[8px] text-gray-500 mt-1">Sep</span>
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-5 h-[55px] bg-[#EDF0F7] rounded-t-md"></div>
+                                            <span class="text-[8px] text-gray-500 mt-1">Oct</span>
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-5 h-[30px] bg-[#EDF0F7] rounded-t-md"></div>
+                                            <span class="text-[8px] text-gray-500 mt-1">Nov</span>
+                                        </div>
+                                        <div class="flex flex-col items-center relative">
+                                            <div class="w-5 h-[70px] bg-[#16DBCC] rounded-t-md"></div>
+                                            <span
+                                                class="absolute -top-4 text-[7px] font-semibold text-[#343C6A]">$12.5k</span>
+                                            <span class="text-[8px] text-gray-500 mt-1">Dec</span>
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-5 h-[45px] bg-[#EDF0F7] rounded-t-md"></div>
+                                            <span class="text-[8px] text-gray-500 mt-1">Jan</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Placeholder for scroll indication -->
+                            <div class="flex flex-col min-w-[280px] opacity-0">
+                                <div class="h-6 mb-2"></div>
+                                <div class="w-full h-[180px]"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
+
             <!-- Recent Transactions Section -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="p-5 border-b border-gray-200 flex flex-col items-start space-y-4">
-
-                    <h3 class="text-[22px] font-semibold text-[#343C6A] font-['Inter',sans-serif]">
+                <!-- Section Header -->
+                <div class="p-4 sm:p-5 border-b border-gray-200">
+                    <h3 class="text-[18px] sm:text-[20px] lg:text-[22px] font-semibold text-[#343C6A] mb-3 sm:mb-4">
                         Recent Transactions
                     </h3>
 
-                    <div class="flex items-center space-x-6">
-                        <button class="relative text-[16px] font-medium text-[#1814F3] font-['Inter',sans-serif] pb-2">
+                    <!-- Filter Tabs -->
+                    <div
+                        class="flex items-center space-x-4 sm:space-x-5 lg:space-x-6 overflow-x-auto no-scrollbar pb-1">
+                        <button
+                            class="relative text-[14px] sm:text-[15px] lg:text-[16px] font-medium text-[#1814F3] whitespace-nowrap pb-2">
                             All Transactions
                             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#1814F3] rounded-full"></span>
                         </button>
-
                         <button
-                            class="group relative text-[16px] font-medium text-[#718EBF] font-['Inter',sans-serif] pb-2 hover:text-[#718EB] transition-colors">
+                            class="relative text-[14px] sm:text-[15px] lg:text-[16px] font-medium text-[#718EBF] whitespace-nowrap pb-2 hover:text-[#1814F3] transition-colors">
                             Income
-                            <span
-                                class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#1814F3] rounded-full group-hover:w-full transition-all duration-300"></span>
                         </button>
-
                         <button
-                            class="group relative text-[16px] font-medium text-[#718EBF] font-['Inter',sans-serif] pb-2 hover:text-[#718EBF] transition-colors">
+                            class="relative text-[14px] sm:text-[15px] lg:text-[16px] font-medium text-[#718EBF] whitespace-nowrap pb-2 hover:text-[#1814F3] transition-colors">
                             Expense
-                            <span
-                                class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#1814F3] rounded-full group-hover:w-full transition-all duration-300"></span>
                         </button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Transactions Table -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead class="bg-gray-50 text-gray-600 text-xs">
-                        <tr>
-                            <th class="px-5 py-3 text-left font-medium">Description</th>
-                            <th class="px-5 py-3 text-left font-medium">Transaction ID</th>
-                            <th class="px-5 py-3 text-left font-medium">Type</th>
-                            <th class="px-5 py-3 text-left font-medium">Card</th>
-                            <th class="px-5 py-3 text-left font-medium">Date</th>
-                            <th class="px-5 py-3 text-left font-medium">Amount</th>
-                            <th class="px-5 py-3 text-left font-medium">Receipt</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        <!-- Row 1 - Spotify -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-5 py-4">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-[30px] h-[30px] rounded-full flex items-center justify-center">
-                                        <img src="/imgs/icons/arrow-up.png" alt="Spotify" class="w-5 h-5">
+                <!-- Transactions Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs sm:text-sm">
+                        <!-- Table Header -->
+                        <thead class="bg-gray-50 text-gray-600 text-[10px] sm:text-xs">
+                            <tr>
+                                <!-- Description - Selalu Tampil -->
+                                <th class="px-3 sm:px-4 lg:px-5 py-2 sm:py-3 text-left font-medium whitespace-nowrap">
+                                    Description</th>
+
+                                <!-- Sembunyikan di mobile, tampil di tablet/desktop -->
+                                <th
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-2 sm:py-3 text-left font-medium whitespace-nowrap">
+                                    Transaction ID</th>
+                                <th
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-2 sm:py-3 text-left font-medium whitespace-nowrap">
+                                    Type</th>
+                                <th
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-2 sm:py-3 text-left font-medium whitespace-nowrap">
+                                    Card</th>
+                                <th
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-2 sm:py-3 text-left font-medium whitespace-nowrap">
+                                    Date</th>
+
+                                <!-- Amount - Selalu Tampil -->
+                                <th class="px-3 sm:px-4 lg:px-5 py-2 sm:py-3 text-left font-medium whitespace-nowrap">
+                                    Amount</th>
+
+                                <!-- Receipt - Sembunyikan di mobile -->
+                                <th
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-2 sm:py-3 text-left font-medium whitespace-nowrap">
+                                    Receipt</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="divide-y divide-gray-100">
+                            <!-- Row 1 - Spotify -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <!-- Description Column -->
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex items-center space-x-2 sm:space-x-3">
+                                        <div
+                                            class="w-6 h-6 sm:w-7 sm:h-7 lg:w-[30px] lg:h-[30px] rounded-full flex items-center justify-center flex-shrink-0">
+                                            <img src="/imgs/icons/arrow-up.png" alt="Spotify"
+                                                class="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5">
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-gray-800">
+                                                Spotify Subscription
+                                            </span>
+                                            <!-- Info tambahan untuk mobile (muncul hanya di mobile) -->
+                                            <span class="text-[9px] text-gray-500 sm:hidden">
+                                                #12548796 • Shopping • 1234 **** • 28 Jan
+                                            </span>
+                                        </div>
                                     </div>
-                                    <span class="font-medium text-gray-800">Spotify Subscription</span>
-                                </div>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">#12548796</td>
-                            <td class="px-5 py-4">
-                                <span class="text-sm text-gray-600">Shopping</span>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">1234 ****</td>
-                            <td class="px-5 py-4 text-gray-600">28 Jan, 12.30 AM</td>
-                            <td class="px-5 py-4 font-medium text-red-600">-$2,500</td>
-                            <td class="px-5 py-4">
-                                <button
-                                    class="px-4 py-1.5 border border-[#123288] rounded-full text-sm text-[#123288] hover:bg-[#123288]/5 transition-colors duration-200">
-                                    Download
-                                </button>
-                            </td>
-                        </tr>
+                                </td>
 
-                        <!-- Row 2 - Freepik -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-5 py-4">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-[30px] h-[30px] rounded-full flex items-center justify-center">
-                                        <img src="/imgs/icons/arrow-down.png" alt="Freepik" class="w-5 h-5">
+                                <!-- Sembunyikan di mobile -->
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    #12548796</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    Shopping</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    1234 ****</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    28 Jan, 12.30 AM</td>
+
+                                <!-- Amount Column -->
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-red-600 whitespace-nowrap">-$2,500</span>
+                                        <!-- Tombol Download untuk mobile -->
+                                        <button class="sm:hidden text-[8px] text-[#123288] underline mt-1">
+                                            Download
+                                        </button>
                                     </div>
-                                    <span class="font-medium text-gray-800">Freepik Sales</span>
-                                </div>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">#12548796</td>
-                            <td class="px-5 py-4">
-                                <span class="text-sm text-gray-600">Transfer</span>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">1234 ****</td>
-                            <td class="px-5 py-4 text-gray-600">25 Jan, 10.40 PM</td>
-                            <td class="px-5 py-4 font-medium text-green-600">+$750</td>
-                            <td class="px-5 py-4">
-                                <button
-                                    class="px-4 py-1.5 border border-[#123288] rounded-full text-sm text-[#123288] hover:bg-[#123288]/5 transition-colors duration-200">
-                                    Download
-                                </button>
-                            </td>
-                        </tr>
+                                </td>
 
-                        <!-- Row 3 - Mobile Service -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-5 py-4">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-[30px] h-[30px] rounded-full flex items-center justify-center">
-                                        <img src="/imgs/icons/arrow-up.png" alt="Mobile Service" class="w-5 h-5">
+                                <!-- Receipt Column (Desktop only) -->
+                                <td class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <button class="px-2 sm:px-3 lg:px-4 py-1 sm:py-1.5 border border-[#123288] rounded-full 
+                                       text-[10px] sm:text-[11px] lg:text-sm text-[#123288] 
+                                       hover:bg-[#123288]/5 transition-colors duration-200 whitespace-nowrap">
+                                        Download
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 - Freepik -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex items-center space-x-2 sm:space-x-3">
+                                        <div
+                                            class="w-6 h-6 sm:w-7 sm:h-7 lg:w-[30px] lg:h-[30px] rounded-full flex items-center justify-center flex-shrink-0">
+                                            <img src="/imgs/icons/arrow-down.png" alt="Freepik"
+                                                class="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5">
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-gray-800">
+                                                Freepik Sales
+                                            </span>
+                                            <span class="text-[9px] text-gray-500 sm:hidden">
+                                                #12548796 • Transfer • 1234 **** • 25 Jan
+                                            </span>
+                                        </div>
                                     </div>
-                                    <span class="font-medium text-gray-800">Mobile Service</span>
-                                </div>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">#12548796</td>
-                            <td class="px-5 py-4">
-                                <span class="text-sm text-gray-600">Service</span>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">1234 ****</td>
-                            <td class="px-5 py-4 text-gray-600">20 Jan, 10.40 PM</td>
-                            <td class="px-5 py-4 font-medium text-red-600">-$150</td>
-                            <td class="px-5 py-4">
-                                <button
-                                    class="px-4 py-1.5 border border-[#123288] rounded-full text-sm text-[#123288] hover:bg-[#123288]/5 transition-colors duration-200">
-                                    Download
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Row 4 - Wilson -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-5 py-4">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-[30px] h-[30px] rounded-full flex items-center justify-center">
-                                        <img src="/imgs/icons/arrow-up.png" alt="Wilson" class="w-5 h-5">
+                                </td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    #12548796</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    Transfer</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    1234 ****</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    25 Jan, 10.40 PM</td>
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-green-600 whitespace-nowrap">+$750</span>
+                                        <button class="sm:hidden text-[8px] text-[#123288] underline mt-1">
+                                            Download
+                                        </button>
                                     </div>
-                                    <span class="font-medium text-gray-800">Wilson</span>
-                                </div>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">#12548796</td>
-                            <td class="px-5 py-4">
-                                <span class="text-sm text-gray-600">Transfer</span>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">1234 ****</td>
-                            <td class="px-5 py-4 text-gray-600">15 Jan, 03.29 PM</td>
-                            <td class="px-5 py-4 font-medium text-red-600">-$1,050</td>
-                            <td class="px-5 py-4">
-                                <button
-                                    class="px-4 py-1.5 border border-[#123288] rounded-full text-sm text-[#123288] hover:bg-[#123288]/5 transition-colors duration-200">
-                                    Download
-                                </button>
-                            </td>
-                        </tr>
+                                </td>
+                                <td class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <button class="px-2 sm:px-3 lg:px-4 py-1 sm:py-1.5 border border-[#123288] rounded-full 
+                                       text-[10px] sm:text-[11px] lg:text-sm text-[#123288] 
+                                       hover:bg-[#123288]/5 transition-colors duration-200 whitespace-nowrap">
+                                        Download
+                                    </button>
+                                </td>
+                            </tr>
 
-                        <!-- Row 5 - Emily -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-5 py-4">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-[30px] h-[30px] rounded-full flex items-center justify-center">
-                                        <img src="/imgs/icons/arrow-down.png" alt="Emily" class="w-5 h-5">
+                            <!-- Row 3 - Mobile Service -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex items-center space-x-2 sm:space-x-3">
+                                        <div
+                                            class="w-6 h-6 sm:w-7 sm:h-7 lg:w-[30px] lg:h-[30px] rounded-full flex items-center justify-center flex-shrink-0">
+                                            <img src="/imgs/icons/arrow-up.png" alt="Mobile Service"
+                                                class="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5">
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-gray-800">
+                                                Mobile Service
+                                            </span>
+                                            <span class="text-[9px] text-gray-500 sm:hidden">
+                                                #12548796 • Service • 1234 **** • 20 Jan
+                                            </span>
+                                        </div>
                                     </div>
-                                    <span class="font-medium text-gray-800">Emily</span>
-                                </div>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">#12548796</td>
-                            <td class="px-5 py-4">
-                                <span class="text-sm text-gray-600">Transfer</span>
-                            </td>
-                            <td class="px-5 py-4 text-gray-600">1234 ****</td>
-                            <td class="px-5 py-4 text-gray-600">14 Jan, 10.40 PM</td>
-                            <td class="px-5 py-4 font-medium text-green-600">+$840</td>
-                            <td class="px-5 py-4">
-                                <button
-                                    class="px-4 py-1.5 border border-[#123288] rounded-full text-sm text-[#123288] hover:bg-[#123288]/5 transition-colors duration-200">
-                                    Download
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                                </td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    #12548796</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    Service</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    1234 ****</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    20 Jan, 10.40 PM</td>
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-red-600 whitespace-nowrap">-$150</span>
+                                        <button class="sm:hidden text-[8px] text-[#123288] underline mt-1">
+                                            Download
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <button class="px-2 sm:px-3 lg:px-4 py-1 sm:py-1.5 border border-[#123288] rounded-full 
+                                       text-[10px] sm:text-[11px] lg:text-sm text-[#123288] 
+                                       hover:bg-[#123288]/5 transition-colors duration-200 whitespace-nowrap">
+                                        Download
+                                    </button>
+                                </td>
+                            </tr>
 
-            <!-- Pagination -->
-            <div class="px-5 py-4 border-t border-gray-200 flex items-center justify-end space-x-2">
-                <!-- Previous Button -->
-                <button
-                    class="flex items-center space-x-1 text-sm text-[#1814F3] hover:text-[#1814F3]/80 transition-colors">
-                    <i class="ph ph-caret-left"></i>
-                    <span>Previous</span>
-                </button>
+                            <!-- Row 4 - Wilson -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex items-center space-x-2 sm:space-x-3">
+                                        <div
+                                            class="w-6 h-6 sm:w-7 sm:h-7 lg:w-[30px] lg:h-[30px] rounded-full flex items-center justify-center flex-shrink-0">
+                                            <img src="/imgs/icons/arrow-up.png" alt="Wilson"
+                                                class="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5">
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-gray-800">
+                                                Wilson
+                                            </span>
+                                            <span class="text-[9px] text-gray-500 sm:hidden">
+                                                #12548796 • Transfer • 1234 **** • 15 Jan
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    #12548796</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    Transfer</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    1234 ****</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    15 Jan, 03.29 PM</td>
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-red-600 whitespace-nowrap">-$1,050</span>
+                                        <button class="sm:hidden text-[8px] text-[#123288] underline mt-1">
+                                            Download
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <button class="px-2 sm:px-3 lg:px-4 py-1 sm:py-1.5 border border-[#123288] rounded-full 
+                                       text-[10px] sm:text-[11px] lg:text-sm text-[#123288] 
+                                       hover:bg-[#123288]/5 transition-colors duration-200 whitespace-nowrap">
+                                        Download
+                                    </button>
+                                </td>
+                            </tr>
 
-                <!-- Page Numbers -->
-                <button class="w-8 h-8 rounded-lg bg-[#1814F3] text-white text-sm font-medium">1</button>
-                <button class="w-8 h-8 rounded-lg hover:bg-[#1814F3]/10 text-[#1814F3] text-sm">2</button>
-                <button class="w-8 h-8 rounded-lg hover:bg-[#1814F3]/10 text-[#1814F3] text-sm">3</button>
-                <button class="w-8 h-8 rounded-lg hover:bg-[#1814F3]/10 text-[#1814F3] text-sm">4</button>
+                            <!-- Row 5 - Emily -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex items-center space-x-2 sm:space-x-3">
+                                        <div
+                                            class="w-6 h-6 sm:w-7 sm:h-7 lg:w-[30px] lg:h-[30px] rounded-full flex items-center justify-center flex-shrink-0">
+                                            <img src="/imgs/icons/arrow-down.png" alt="Emily"
+                                                class="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5">
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-gray-800">
+                                                Emily
+                                            </span>
+                                            <span class="text-[9px] text-gray-500 sm:hidden">
+                                                #12548796 • Transfer • 1234 **** • 14 Jan
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    #12548796</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    Transfer</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    1234 ****</td>
+                                <td
+                                    class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4 text-[11px] sm:text-[12px] lg:text-sm text-gray-600 whitespace-nowrap">
+                                    14 Jan, 10.40 PM</td>
+                                <td class="px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[11px] sm:text-[12px] lg:text-sm font-medium text-green-600 whitespace-nowrap">+$840</span>
+                                        <button class="sm:hidden text-[8px] text-[#123288] underline mt-1">
+                                            Download
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="hidden sm:table-cell px-3 sm:px-4 lg:px-5 py-3 sm:py-4">
+                                    <button class="px-2 sm:px-3 lg:px-4 py-1 sm:py-1.5 border border-[#123288] rounded-full 
+                                       text-[10px] sm:text-[11px] lg:text-sm text-[#123288] 
+                                       hover:bg-[#123288]/5 transition-colors duration-200 whitespace-nowrap">
+                                        Download
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <!-- Next Button -->
-                <button
-                    class="flex items-center space-x-1 text-sm text-[#1814F3] hover:text-[#1814F3]/80 transition-colors">
-                    <span>Next</span>
-                    <i class="ph ph-caret-right"></i>
-                </button>
-            </div>
+                <!-- Pagination -->
+                <div
+                    class="px-4 sm:px-5 py-3 sm:py-4 border-t border-gray-200 flex items-center justify-end space-x-1 sm:space-x-2">
+                    <button
+                        class="flex items-center space-x-1 text-[12px] sm:text-sm text-[#1814F3] hover:text-[#1814F3]/80 transition-colors">
+                        <i class="ph ph-caret-left text-sm"></i>
+                        <span class="hidden sm:inline">Previous</span>
+                    </button>
+                    <button
+                        class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-lg bg-[#1814F3] text-white text-[11px] sm:text-xs lg:text-sm font-medium">1</button>
+                    <button
+                        class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-lg hover:bg-[#1814F3]/10 text-[#1814F3] text-[11px] sm:text-xs lg:text-sm">2</button>
+                    <button
+                        class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-lg hover:bg-[#1814F3]/10 text-[#1814F3] text-[11px] sm:text-xs lg:text-sm">3</button>
+                    <button
+                        class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-lg hover:bg-[#1814F3]/10 text-[#1814F3] text-[11px] sm:text-xs lg:text-sm">4</button>
+                    <button
+                        class="flex items-center space-x-1 text-[12px] sm:text-sm text-[#1814F3] hover:text-[#1814F3]/80 transition-colors">
+                        <span class="hidden sm:inline">Next</span>
+                        <i class="ph ph-caret-right text-sm"></i>
+                    </button>
+                </div>
+                </section>
+        </main>
     </div>
-    </main>
-    </div>
 
-    <script>
-        function setActive(menuId) {
-            document.querySelectorAll('[data-menu-id]').forEach(item => {
-                item.classList.remove("text-[#1814F3]", "bg-[#F0F2F9]");
-                item.classList.add("text-[#B1B1B1]");
-
-                item.querySelector('.normal-icon')?.classList.remove("hidden");
-                item.querySelector('.active-icon')?.classList.add("hidden");
-                item.querySelector('.active-line')?.classList.add("hidden");
-            });
-
-            const selected = document.querySelector(`[data-menu-id="${menuId}"]`);
-            if (selected) {
-                selected.classList.remove("text-[#B1B1B1]");
-                selected.classList.add("text-[#1814F3]", "bg-[#F0F2F9]");
-
-                selected.querySelector('.normal-icon')?.classList.add("hidden");
-                selected.querySelector('.active-icon')?.classList.remove("hidden");
-                selected.querySelector('.active-line')?.classList.remove("hidden");
-            }
-        }
-
-        Promise.all([
-            fetch('/layouts/header.html').then(res => res.text()),
-            fetch('/layouts/sidebar.html').then(res => res.text())
-        ])
-            .then(([header, sidebar]) => {
-
-                // Inject HTML
-                document.getElementById('header-container').innerHTML = header;
-                document.getElementById('sidebar-container').innerHTML = sidebar;
-
-                // 🔥 Set Active Menu (PENTING setelah inject)
-                setActive('transactions');
-
-                // 🔥 Auto Title
-                const path = window.location.pathname.toLowerCase();
-                const pageName = path.split("/").pop().replace(".html", "");
-                const formattedName =
-                    pageName.charAt(0).toUpperCase() + pageName.slice(1);
-
-                const titleElement = document.getElementById('page-title');
-                if (titleElement) {
-                    titleElement.textContent = formattedName;
-                }
-
-                document.title = "BankDash - " + formattedName;
-
-                // 🔥 Tampilkan halaman setelah semua selesai
-                document.body.style.visibility = "visible";
-            });
-    </script>
-
+    <!-- Component Loader -->
+    <script src="/js/components.js"></script>
 </body>
 
 </html>

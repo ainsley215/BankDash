@@ -12,12 +12,23 @@
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 
     <style>
+        /* Sembunyikan body segera mungkin */
         body {
-            visibility: hidden;
+            opacity: 0;
+            background: #F5F7FA;
         }
-    </style>
 
-    <style>
+        /* Overlay transisi */
+        #page-transition-overlay {
+            position: fixed;
+            inset: 0;
+            background: #F5F7FA;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 300ms ease;
+        }
+
         /* Custom scrollbar styling */
         ::-webkit-scrollbar {
             width: 6px;
@@ -38,6 +49,16 @@
             background: #a1a1a1;
         }
 
+        /* Hide scrollbar for horizontal scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -46,87 +67,105 @@
 
         body {
             overflow: hidden;
+            background-color: #F5F7FA;
         }
     </style>
 </head>
 
-<body class="bg-gray-50 flex h-screen overflow-hidden">
-    <!-- SIDEBAR -->
+<body class="flex h-screen overflow-hidden">
+    <!-- SIDEBAR CONTAINER -->
     <div id="sidebar-container" class="h-full flex-shrink-0"></div>
 
     <!-- MAIN CONTENT -->
     <div class="flex-1 flex flex-col overflow-hidden">
-        <!-- HEADER -->
+        <!-- HEADER CONTAINER -->
         <div id="header-container" class="flex-shrink-0"></div>
 
         <!-- MAIN CONTENT - Accounts Page -->
-        <main class="flex-1 overflow-y-auto p-6">
-            <!-- Top Row: 4 Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <main class="flex-1 overflow-y-auto p-4 sm:p-5 lg:p-6">
+
+            <!-- ===== TOP ROW: 4 CARDS ===== -->
+            <!-- Mobile: 2 kolom, Tablet: 4 kolom dengan ukuran lebih kecil, Desktop: 4 kolom ukuran normal -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6">
                 <!-- My Balance Card -->
-                <div
-                    class="bg-white rounded-[16px] shadow-sm border border-gray-100 w-[255px] h-[120px] p-4 flex items-center gap-4">
-                    <img src="/imgs/icons/my-balance.png" alt="Balance" class="w-[70px] h-[70px] object-contain">
+                <div class="bg-white rounded-[12px] sm:rounded-[14px] lg:rounded-[16px] shadow-sm border border-gray-100 
+                            w-full h-[100px] sm:h-[110px] lg:h-[120px] p-2 sm:p-3 lg:p-4 
+                            flex items-center gap-2 sm:gap-3 lg:gap-4">
+                    <img src="/imgs/icons/my-balance.png" alt="Balance"
+                        class="w-[50px] sm:w-[60px] lg:w-[70px] h-[50px] sm:h-[60px] lg:h-[70px] object-contain">
                     <div>
-                        <p class="text-[16px] font-normal text-[#718EBF] font-['Inter'] mb-1">My Balance</p>
-                        <p class="text-[25px] font-semibold text-[#232323] font-['Inter']">$12,750</p>
+                        <p class="text-[12px] sm:text-[14px] lg:text-[16px] font-normal text-[#718EBF] font-['Inter'] mb-0.5 sm:mb-1">
+                            My Balance</p>
+                        <p class="text-[18px] sm:text-[22px] lg:text-[25px] font-semibold text-[#232323] font-['Inter']">
+                            $12,750</p>
                     </div>
                 </div>
 
                 <!-- Income Card -->
-                <div
-                    class="bg-white rounded-[16px] shadow-sm border border-gray-100 w-[255px] h-[120px] p-4 flex items-center gap-4">
-                    <img src="/imgs/icons/income.png" alt="Income" class="w-[70px] h-[70px] object-contain">
+                <div class="bg-white rounded-[12px] sm:rounded-[14px] lg:rounded-[16px] shadow-sm border border-gray-100 
+                            w-full h-[100px] sm:h-[110px] lg:h-[120px] p-2 sm:p-3 lg:p-4 
+                            flex items-center gap-2 sm:gap-3 lg:gap-4">
+                    <img src="/imgs/icons/income.png" alt="Income"
+                        class="w-[50px] sm:w-[60px] lg:w-[70px] h-[50px] sm:h-[60px] lg:h-[70px] object-contain">
                     <div>
-                        <p class="text-[16px] font-normal text-[#718EBF] font-['Inter'] mb-1">Income</p>
-                        <p class="text-[25px] font-semibold text-[#232323] font-['Inter']">$5,600</p>
+                        <p class="text-[12px] sm:text-[14px] lg:text-[16px] font-normal text-[#718EBF] font-['Inter'] mb-0.5 sm:mb-1">
+                            Income</p>
+                        <p class="text-[18px] sm:text-[22px] lg:text-[25px] font-semibold text-[#232323] font-['Inter']">
+                            $5,600</p>
                     </div>
                 </div>
 
                 <!-- Expense Card -->
-                <div
-                    class="bg-white rounded-[16px] shadow-sm border border-gray-100 w-[255px] h-[120px] p-4 flex items-center gap-4">
-                    <img src="/imgs/icons/expense.png" alt="Expense" class="w-[70px] h-[70px] object-contain">
+                <div class="bg-white rounded-[12px] sm:rounded-[14px] lg:rounded-[16px] shadow-sm border border-gray-100 
+                            w-full h-[100px] sm:h-[110px] lg:h-[120px] p-2 sm:p-3 lg:p-4 
+                            flex items-center gap-2 sm:gap-3 lg:gap-4">
+                    <img src="/imgs/icons/expense.png" alt="Expense"
+                        class="w-[50px] sm:w-[60px] lg:w-[70px] h-[50px] sm:h-[60px] lg:h-[70px] object-contain">
                     <div>
-                        <p class="text-[16px] font-normal text-[#718EBF] font-['Inter'] mb-1">Expense</p>
-                        <p class="text-[25px] font-semibold text-[#232323] font-['Inter']">$3,460</p>
+                        <p class="text-[12px] sm:text-[14px] lg:text-[16px] font-normal text-[#718EBF] font-['Inter'] mb-0.5 sm:mb-1">
+                            Expense</p>
+                        <p class="text-[18px] sm:text-[22px] lg:text-[25px] font-semibold text-[#232323] font-['Inter']">
+                            $3,460</p>
                     </div>
                 </div>
 
                 <!-- Total Saving Card -->
-                <div
-                    class="bg-white rounded-[16px] shadow-sm border border-gray-100 w-[255px] h-[120px] p-4 flex items-center gap-4">
-                    <img src="/imgs/icons/total-saving.png" alt="Total Saving" class="w-[70px] h-[70px] object-contain">
+                <div class="bg-white rounded-[12px] sm:rounded-[14px] lg:rounded-[16px] shadow-sm border border-gray-100 
+                            w-full h-[100px] sm:h-[110px] lg:h-[120px] p-2 sm:p-3 lg:p-4 
+                            flex items-center gap-2 sm:gap-3 lg:gap-4">
+                    <img src="/imgs/icons/total-saving.png" alt="Total Saving"
+                        class="w-[50px] sm:w-[60px] lg:w-[70px] h-[50px] sm:h-[60px] lg:h-[70px] object-contain">
                     <div>
-                        <p class="text-[16px] font-normal text-[#718EBF] font-['Inter'] mb-1">Total Saving</p>
-                        <p class="text-[25px] font-semibold text-[#232323] font-['Inter']">$7,920</p>
+                        <p class="text-[12px] sm:text-[14px] lg:text-[16px] font-normal text-[#718EBF] font-['Inter'] mb-0.5 sm:mb-1">
+                            Total Saving</p>
+                        <p class="text-[18px] sm:text-[22px] lg:text-[25px] font-semibold text-[#232323] font-['Inter']">
+                            $7,920</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Middle Row: Last Transaction + My Card -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 items-end">
+            <!-- ===== MIDDLE ROW: LAST TRANSACTION + MY CARD ===== -->
+            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-6">
 
-                <div class="w-[730px] flex-shrink-0">
-                    <h2 class="text-[22px] font-semibold text-[#333B69] font-['Inter',sans-serif] mb-4">Last Transaction
+                <!-- LAST TRANSACTION -->
+                <div class="w-full lg:w-[730px]">
+                    <h2 class="text-[18px] sm:text-[20px] lg:text-[22px] font-semibold text-[#333B69] font-['Inter',sans-serif] mb-3 sm:mb-4">
+                        Last Transaction
                     </h2>
 
-                    <div
-                        class="bg-white border border-[#DFEAF2] rounded-2xl px-6 py-4 shadow-sm h-[225px] flex flex-col justify-between font-['Inter',sans-serif]">
-
-                        <div class="flex items-center h-full border-b border-[#F2F4F7] last:border-0">
+                    <!-- Desktop Version (lg:block) - Tampilan lengkap -->
+                    <div class="hidden lg:block bg-white border border-[#DFEAF2] rounded-2xl px-6 py-4 shadow-sm h-[225px] font-['Inter',sans-serif]">
+                        <!-- Transaction 1 -->
+                        <div class="flex items-center h-[60px] border-b border-[#F2F4F7]">
                             <div class="flex items-center gap-4 w-[250px] flex-shrink-0">
-                                <div
-                                    class="w-10 h-10 bg-[#FFBB38]/15 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <img src="https://img.icons8.com/ios-filled/50/FFBB38/spotify.png" class="w-5 h-5"
-                                        alt="Spotify">
+                                <div class="w-10 h-10 bg-[#FFBB38]/15 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/ios-filled/50/FFBB38/spotify.png" class="w-5 h-5" alt="Spotify">
                                 </div>
                                 <div>
                                     <p class="text-[14px] font-semibold text-[#232323]">Spotify Subscription</p>
                                     <p class="text-[12px] text-[#718EBF]">25 Jan 2021</p>
                                 </div>
                             </div>
-
                             <div class="flex items-center justify-between flex-1 ml-4">
                                 <span class="text-[14px] text-[#718EBF] w-[100px]">Shopping</span>
                                 <span class="text-[14px] text-[#718EBF] w-[120px]">1234 ****</span>
@@ -134,20 +173,17 @@
                                 <span class="text-[16px] font-bold text-[#FF4B4B] text-right flex-1">-$150</span>
                             </div>
                         </div>
-
-                        <div class="flex items-center h-full border-b border-[#F2F4F7] last:border-0">
+                        <!-- Transaction 2 -->
+                        <div class="flex items-center h-[60px] border-b border-[#F2F4F7]">
                             <div class="flex items-center gap-4 w-[250px] flex-shrink-0">
-                                <div
-                                    class="w-10 h-10 bg-[#396AFF]/15 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <img src="https://img.icons8.com/ios-filled/50/396AFF/settings.png" class="w-5 h-5"
-                                        alt="Service">
+                                <div class="w-10 h-10 bg-[#396AFF]/15 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/ios-filled/50/396AFF/settings.png" class="w-5 h-5" alt="Service">
                                 </div>
                                 <div>
                                     <p class="text-[14px] font-semibold text-[#232323]">Mobile Service</p>
                                     <p class="text-[12px] text-[#718EBF]">25 Jan 2021</p>
                                 </div>
                             </div>
-
                             <div class="flex items-center justify-between flex-1 ml-4">
                                 <span class="text-[14px] text-[#718EBF] w-[100px]">Service</span>
                                 <span class="text-[14px] text-[#718EBF] w-[120px]">1234 ****</span>
@@ -155,20 +191,17 @@
                                 <span class="text-[16px] font-bold text-[#FF4B4B] text-right flex-1">-$340</span>
                             </div>
                         </div>
-
-                        <div class="flex items-center h-full border-b border-[#F2F4F7] last:border-0">
+                        <!-- Transaction 3 -->
+                        <div class="flex items-center h-[60px]">
                             <div class="flex items-center gap-4 w-[250px] flex-shrink-0">
-                                <div
-                                    class="w-10 h-10 bg-[#16DBCC]/15 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <img src="https://img.icons8.com/ios-filled/50/16DBCC/user.png" class="w-5 h-5"
-                                        alt="Transfer">
+                                <div class="w-10 h-10 bg-[#16DBCC]/15 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/ios-filled/50/16DBCC/user.png" class="w-5 h-5" alt="Transfer">
                                 </div>
                                 <div>
                                     <p class="text-[14px] font-semibold text-[#232323]">Emily Wilson</p>
                                     <p class="text-[12px] text-[#718EBF]">25 Jan 2021</p>
                                 </div>
                             </div>
-
                             <div class="flex items-center justify-between flex-1 ml-4">
                                 <span class="text-[14px] text-[#718EBF] w-[100px]">Transfer</span>
                                 <span class="text-[14px] text-[#718EBF] w-[120px]">1234 ****</span>
@@ -176,49 +209,154 @@
                                 <span class="text-[16px] font-bold text-[#16DBCC] text-right flex-1">+$780</span>
                             </div>
                         </div>
+                    </div>
 
+                    <!-- Tablet Version (hidden lg:block md:block) - Tampilan lengkap ukuran tablet -->
+                    <div class="hidden md:block lg:hidden bg-white border border-[#DFEAF2] rounded-xl px-4 py-3 shadow-sm font-['Inter',sans-serif]">
+                        <!-- Transaction 1 -->
+                        <div class="flex items-center py-2 border-b border-[#F2F4F7] last:border-0">
+                            <div class="flex items-center gap-3 w-[200px] flex-shrink-0">
+                                <div class="w-8 h-8 bg-[#FFBB38]/15 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/ios-filled/50/FFBB38/spotify.png" class="w-4 h-4" alt="Spotify">
+                                </div>
+                                <div>
+                                    <p class="text-[13px] font-semibold text-[#232323]">Spotify</p>
+                                    <p class="text-[11px] text-[#718EBF]">25 Jan 2021</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between flex-1 ml-3">
+                                <span class="text-[12px] text-[#718EBF] w-[80px]">Shopping</span>
+                                <span class="text-[12px] text-[#718EBF] w-[90px]">1234 ****</span>
+                                <span class="text-[12px] text-[#FFB547] font-medium w-[70px]">Pending</span>
+                                <span class="text-[14px] font-bold text-[#FF4B4B] text-right flex-1">-$150</span>
+                            </div>
+                        </div>
+                        <!-- Transaction 2 -->
+                        <div class="flex items-center py-2 border-b border-[#F2F4F7] last:border-0">
+                            <div class="flex items-center gap-3 w-[200px] flex-shrink-0">
+                                <div class="w-8 h-8 bg-[#396AFF]/15 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/ios-filled/50/396AFF/settings.png" class="w-4 h-4" alt="Service">
+                                </div>
+                                <div>
+                                    <p class="text-[13px] font-semibold text-[#232323]">Mobile</p>
+                                    <p class="text-[11px] text-[#718EBF]">25 Jan 2021</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between flex-1 ml-3">
+                                <span class="text-[12px] text-[#718EBF] w-[80px]">Service</span>
+                                <span class="text-[12px] text-[#718EBF] w-[90px]">1234 ****</span>
+                                <span class="text-[12px] text-[#16DBCC] font-medium w-[70px]">Completed</span>
+                                <span class="text-[14px] font-bold text-[#FF4B4B] text-right flex-1">-$340</span>
+                            </div>
+                        </div>
+                        <!-- Transaction 3 -->
+                        <div class="flex items-center py-2">
+                            <div class="flex items-center gap-3 w-[200px] flex-shrink-0">
+                                <div class="w-8 h-8 bg-[#16DBCC]/15 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/ios-filled/50/16DBCC/user.png" class="w-4 h-4" alt="Transfer">
+                                </div>
+                                <div>
+                                    <p class="text-[13px] font-semibold text-[#232323]">Emily</p>
+                                    <p class="text-[11px] text-[#718EBF]">25 Jan 2021</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between flex-1 ml-3">
+                                <span class="text-[12px] text-[#718EBF] w-[80px]">Transfer</span>
+                                <span class="text-[12px] text-[#718EBF] w-[90px]">1234 ****</span>
+                                <span class="text-[12px] text-[#16DBCC] font-medium w-[70px]">Completed</span>
+                                <span class="text-[14px] font-bold text-[#16DBCC] text-right flex-1">+$780</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Version (md:hidden) - Hanya icon, description, dan amount -->
+                    <div class="md:hidden bg-white border border-[#DFEAF2] rounded-xl p-4 space-y-4">
+                        <!-- Transaction 1 - Spotify -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-[#FFBB38]/15 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/ios-filled/50/FFBB38/spotify.png" class="w-5 h-5" alt="Spotify">
+                                </div>
+                                <div>
+                                    <p class="text-[15px] font-semibold text-[#232323]">Spotify Subscription</p>
+                                    <p class="text-[12px] text-[#718EBF]">25 Jan 2021</p>
+                                </div>
+                            </div>
+                            <span class="text-[16px] font-bold text-[#FF4B4B]">-$150</span>
+                        </div>
+                        <!-- Transaction 2 - Mobile Service -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-[#396AFF]/15 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/ios-filled/50/396AFF/settings.png" class="w-5 h-5" alt="Service">
+                                </div>
+                                <div>
+                                    <p class="text-[15px] font-semibold text-[#232323]">Mobile Service</p>
+                                    <p class="text-[12px] text-[#718EBF]">25 Jan 2021</p>
+                                </div>
+                            </div>
+                            <span class="text-[16px] font-bold text-[#FF4B4B]">-$340</span>
+                        </div>
+                        <!-- Transaction 3 - Emily Wilson -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-[#16DBCC]/15 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <img src="https://img.icons8.com/ios-filled/50/16DBCC/user.png" class="w-5 h-5" alt="Transfer">
+                                </div>
+                                <div>
+                                    <p class="text-[15px] font-semibold text-[#232323]">Emily Wilson</p>
+                                    <p class="text-[12px] text-[#718EBF]">25 Jan 2021</p>
+                                </div>
+                            </div>
+                            <span class="text-[16px] font-bold text-[#16DBCC]">+$780</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- My Card -->
-                <div class="w-full flex flex-col items-end">
-                    <div class="w-[350px] mr-4">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-[22px] font-semibold text-[#333B69] font-['Inter',sans-serif]">My Card</h2>
-                            <h2
-                                class="text-[17px] font-semibold text-[#333B69] font-['Inter',sans-serif] cursor-pointer hover:text-[#1814F3] transition-colors">
+                <!-- MY CARD -->
+                <div class="w-full lg:w-auto flex-1 lg:flex-initial">
+                    <div class="w-full lg:w-[350px] ml-0 lg:ml-auto">
+                        <div class="flex justify-between items-center mb-3 sm:mb-4">
+                            <h2 class="text-[18px] sm:text-[20px] lg:text-[22px] font-semibold text-[#333B69] font-['Inter',sans-serif]">
+                                My Card
+                            </h2>
+                            <h2 class="text-[14px] sm:text-[15px] lg:text-[17px] font-semibold text-[#333B69] font-['Inter',sans-serif] cursor-pointer hover:text-[#1814F3] transition-colors">
                                 See All
                             </h2>
                         </div>
 
-                        <div
-                            class="w-full h-[225px] bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl p-5 shadow-lg flex flex-col justify-between font-['Lato',sans-serif]">
+                        <!-- Card - Ukuran proporsional di semua device -->
+                        <div class="w-full h-[200px] sm:h-[215px] lg:h-[225px] 
+                                    bg-gradient-to-r from-blue-600 to-blue-700 text-white 
+                                    rounded-xl sm:rounded-2xl p-4 sm:p-4.5 lg:p-5 shadow-lg 
+                                    flex flex-col justify-between font-['Lato',sans-serif]">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <p class="text-xs text-blue-200">Balance</p>
-                                    <p class="text-xl font-bold">$5,756</p>
+                                    <p class="text-[10px] sm:text-[11px] lg:text-xs text-blue-200">Balance</p>
+                                    <p class="text-lg sm:text-xl lg:text-xl font-bold">$5,756</p>
                                 </div>
-                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                                    <img src="/imgs/icons/Chip_Card1.png" alt="Card Icon" class="w-5 h-5">
+                                <div class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                    <img src="/imgs/icons/Chip_Card1.png" alt="Card Icon"
+                                        class="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5">
                                 </div>
                             </div>
 
                             <div class="flex justify-between items-center">
                                 <div>
-                                    <p class="text-[10px] text-blue-200 uppercase">Card Holder</p>
-                                    <p class="text-sm font-medium">Eddy Cusuma</p>
+                                    <p class="text-[8px] sm:text-[9px] lg:text-[10px] text-blue-200 uppercase">Card Holder</p>
+                                    <p class="text-[12px] sm:text-[12.5px] lg:text-sm font-medium">Eddy Cusuma</p>
                                 </div>
                                 <div>
-                                    <p class="text-[10px] text-blue-200 uppercase">Valid Thru</p>
-                                    <p class="text-sm font-medium">12/22</p>
+                                    <p class="text-[8px] sm:text-[9px] lg:text-[10px] text-blue-200 uppercase">Valid Thru</p>
+                                    <p class="text-[12px] sm:text-[12.5px] lg:text-sm font-medium">12/22</p>
                                 </div>
                             </div>
 
                             <div class="flex justify-between items-center">
-                                <p class="text-lg tracking-wider">3778 **** **** 1234</p>
+                                <p class="text-sm sm:text-base lg:text-lg tracking-wider">3778 **** **** 1234</p>
                                 <div class="flex items-center">
-                                    <div class="w-5 h-5 bg-white bg-opacity-50 rounded-full"></div>
-                                    <div class="w-5 h-5 bg-white bg-opacity-50 rounded-full -ml-3"></div>
+                                    <div class="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 bg-white bg-opacity-50 rounded-full"></div>
+                                    <div class="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 bg-white bg-opacity-50 rounded-full -ml-2 sm:-ml-2.5"></div>
                                 </div>
                             </div>
                         </div>
@@ -226,22 +364,22 @@
                 </div>
             </div>
 
-            <!-- Bottom Row: Debit & Credit Overview + Invoices Sent -->
-            <div class="flex flex-col lg:flex-row w-full gap-[30px] mb-6">
+            <!-- ===== BOTTOM ROW: DEBIT & CREDIT OVERVIEW + INVOICES SENT ===== -->
+            <div class="flex flex-col lg:flex-row w-full gap-4 sm:gap-5 lg:gap-[30px] mb-6">
 
-                <div class="w-[730px] flex-shrink-0">
-                    <h2 class="text-[22px] font-semibold text-[#333B69] font-['Inter',sans-serif] mb-5">
+                <!-- DEBIT & CREDIT OVERVIEW -->
+                <div class="w-full lg:w-[730px]">
+                    <h2 class="text-[18px] sm:text-[20px] lg:text-[22px] font-semibold text-[#333B69] font-['Inter',sans-serif] mb-3 sm:mb-4 lg:mb-5">
                         Debit & Credit Overview
                     </h2>
 
-                    <div
-                        class="bg-white rounded-[25px] p-7 shadow-sm border border-[#DFEAF2] h-[360px] flex flex-col font-['Inter',sans-serif]">
+                    <!-- Desktop Version (lg:block) -->
+                    <div class="hidden lg:block bg-white rounded-[25px] p-7 shadow-sm border border-[#DFEAF2] h-[360px] flex flex-col font-['Inter',sans-serif]">
                         <div class="flex justify-between items-start mb-8">
                             <p class="text-[16px] text-[#718EBF]">
                                 <span class="font-medium text-[#333B69]">$7,560</span> Debited &
                                 <span class="font-medium text-[#333B69]">$5,420</span> Credited in this Week
                             </p>
-
                             <div class="flex gap-6">
                                 <div class="flex items-center gap-2">
                                     <div class="w-4 h-4 bg-[#1A16F3] rounded-[5px]"></div>
@@ -254,7 +392,9 @@
                             </div>
                         </div>
 
+                        <!-- Bar Chart Desktop -->
                         <div class="flex-1 flex items-end justify-between px-4 pb-2">
+                            <!-- Sat -->
                             <div class="flex flex-col items-center gap-3">
                                 <div class="flex items-end gap-3 h-[180px]">
                                     <div class="w-[30px] h-[40%] bg-[#1A16F3] rounded-t-lg"></div>
@@ -262,7 +402,7 @@
                                 </div>
                                 <span class="text-[13px] text-[#718EBF]">Sat</span>
                             </div>
-
+                            <!-- Sun -->
                             <div class="flex flex-col items-center gap-3">
                                 <div class="flex items-end gap-3 h-[180px]">
                                     <div class="w-[30px] h-[30%] bg-[#1A16F3] rounded-t-lg"></div>
@@ -270,7 +410,7 @@
                                 </div>
                                 <span class="text-[13px] text-[#718EBF]">Sun</span>
                             </div>
-
+                            <!-- Mon -->
                             <div class="flex flex-col items-center gap-3">
                                 <div class="flex items-end gap-3 h-[180px]">
                                     <div class="w-[30px] h-[25%] bg-[#1A16F3] rounded-t-lg"></div>
@@ -278,7 +418,7 @@
                                 </div>
                                 <span class="text-[13px] text-[#718EBF]">Mon</span>
                             </div>
-
+                            <!-- Tue -->
                             <div class="flex flex-col items-center gap-3">
                                 <div class="flex items-end gap-3 h-[180px]">
                                     <div class="w-[30px] h-[80%] bg-[#1A16F3] rounded-t-lg"></div>
@@ -286,7 +426,7 @@
                                 </div>
                                 <span class="text-[13px] text-[#718EBF]">Tue</span>
                             </div>
-
+                            <!-- Wed -->
                             <div class="flex flex-col items-center gap-3">
                                 <div class="flex items-end gap-3 h-[180px]">
                                     <div class="w-[30px] h-[55%] bg-[#1A16F3] rounded-t-lg"></div>
@@ -294,7 +434,7 @@
                                 </div>
                                 <span class="text-[13px] text-[#718EBF]">Wed</span>
                             </div>
-
+                            <!-- Thu -->
                             <div class="flex flex-col items-center gap-3">
                                 <div class="flex items-end gap-3 h-[180px]">
                                     <div class="w-[30px] h-[60%] bg-[#1A16F3] rounded-t-lg"></div>
@@ -302,7 +442,7 @@
                                 </div>
                                 <span class="text-[13px] text-[#718EBF]">Thu</span>
                             </div>
-
+                            <!-- Fri -->
                             <div class="flex flex-col items-center gap-3">
                                 <div class="flex items-end gap-3 h-[180px]">
                                     <div class="w-[30px] h-[70%] bg-[#1A16F3] rounded-t-lg"></div>
@@ -311,20 +451,172 @@
                                 <span class="text-[13px] text-[#718EBF]">Fri</span>
                             </div>
                         </div>
+                    </div>
 
+                    <!-- Tablet Version (hidden lg:block md:block) -->
+                    <div class="hidden md:block lg:hidden bg-white rounded-[20px] p-5 shadow-sm border border-[#DFEAF2] h-[300px] flex flex-col font-['Inter',sans-serif]">
+                        <div class="flex justify-between items-start mb-4">
+                            <p class="text-[14px] text-[#718EBF]">
+                                <span class="font-medium text-[#333B69]">$7,560</span> Debited &
+                                <span class="font-medium text-[#333B69]">$5,420</span> Credited
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="flex items-center gap-1">
+                                    <div class="w-3 h-3 bg-[#1A16F3] rounded-[3px]"></div>
+                                    <span class="text-[12px] text-[#718EBF]">Debit</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-3 h-3 bg-[#AC0D6C80] rounded-[3px]"></div>
+                                    <span class="text-[12px] text-[#718EBF]">Credit</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bar Chart Tablet -->
+                        <div class="flex-1 flex items-end justify-between px-2 pb-2">
+                            <!-- Sat -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="flex items-end gap-2 h-[140px]">
+                                    <div class="w-[15px] h-[40%] bg-[#1A16F3] rounded-t-md"></div>
+                                    <div class="w-[15px] h-[90%] bg-[#FCAA0B] rounded-t-md"></div>
+                                </div>
+                                <span class="text-[11px] text-[#718EBF]">Sat</span>
+                            </div>
+                            <!-- Sun -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="flex items-end gap-2 h-[140px]">
+                                    <div class="w-[15px] h-[30%] bg-[#1A16F3] rounded-t-md"></div>
+                                    <div class="w-[15px] h-[70%] bg-[#FCAA0B] rounded-t-md"></div>
+                                </div>
+                                <span class="text-[11px] text-[#718EBF]">Sun</span>
+                            </div>
+                            <!-- Mon -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="flex items-end gap-2 h-[140px]">
+                                    <div class="w-[15px] h-[25%] bg-[#1A16F3] rounded-t-md"></div>
+                                    <div class="w-[15px] h-[45%] bg-[#FCAA0B] rounded-t-md"></div>
+                                </div>
+                                <span class="text-[11px] text-[#718EBF]">Mon</span>
+                            </div>
+                            <!-- Tue -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="flex items-end gap-2 h-[140px]">
+                                    <div class="w-[15px] h-[80%] bg-[#1A16F3] rounded-t-md"></div>
+                                    <div class="w-[15px] h-[40%] bg-[#FCAA0B] rounded-t-md"></div>
+                                </div>
+                                <span class="text-[11px] text-[#718EBF]">Tue</span>
+                            </div>
+                            <!-- Wed -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="flex items-end gap-2 h-[140px]">
+                                    <div class="w-[15px] h-[55%] bg-[#1A16F3] rounded-t-md"></div>
+                                    <div class="w-[15px] h-[75%] bg-[#FCAA0B] rounded-t-md"></div>
+                                </div>
+                                <span class="text-[11px] text-[#718EBF]">Wed</span>
+                            </div>
+                            <!-- Thu -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="flex items-end gap-2 h-[140px]">
+                                    <div class="w-[15px] h-[60%] bg-[#1A16F3] rounded-t-md"></div>
+                                    <div class="w-[15px] h-[35%] bg-[#FCAA0B] rounded-t-md"></div>
+                                </div>
+                                <span class="text-[11px] text-[#718EBF]">Thu</span>
+                            </div>
+                            <!-- Fri -->
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="flex items-end gap-2 h-[140px]">
+                                    <div class="w-[15px] h-[70%] bg-[#1A16F3] rounded-t-md"></div>
+                                    <div class="w-[15px] h-[85%] bg-[#FCAA0B] rounded-t-md"></div>
+                                </div>
+                                <span class="text-[11px] text-[#718EBF]">Fri</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Version (md:hidden) -->
+                    <div class="md:hidden bg-white rounded-[20px] p-4 shadow-sm border border-[#DFEAF2] h-[280px] flex flex-col font-['Inter',sans-serif]">
+                        <div class="flex justify-between items-start mb-4">
+                            <p class="text-[14px] text-[#718EBF]">
+                                <span class="font-medium text-[#333B69]">$7,560</span> Debited
+                            </p>
+                            <div class="flex gap-3">
+                                <div class="flex items-center gap-1">
+                                    <div class="w-3 h-3 bg-[#1A16F3] rounded-[3px]"></div>
+                                    <span class="text-[12px] text-[#718EBF]">Debit</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-3 h-3 bg-[#AC0D6C80] rounded-[3px]"></div>
+                                    <span class="text-[12px] text-[#718EBF]">Credit</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bar Chart Mobile -->
+                        <div class="flex-1 flex items-end justify-between px-1 pb-2">
+                            <!-- 7 days dengan bar kecil -->
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex items-end gap-1 h-[120px]">
+                                    <div class="w-[10px] h-[40%] bg-[#1A16F3] rounded-t-sm"></div>
+                                    <div class="w-[10px] h-[90%] bg-[#FCAA0B] rounded-t-sm"></div>
+                                </div>
+                                <span class="text-[9px] text-[#718EBF]">Sat</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex items-end gap-1 h-[120px]">
+                                    <div class="w-[10px] h-[30%] bg-[#1A16F3] rounded-t-sm"></div>
+                                    <div class="w-[10px] h-[70%] bg-[#FCAA0B] rounded-t-sm"></div>
+                                </div>
+                                <span class="text-[9px] text-[#718EBF]">Sun</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex items-end gap-1 h-[120px]">
+                                    <div class="w-[10px] h-[25%] bg-[#1A16F3] rounded-t-sm"></div>
+                                    <div class="w-[10px] h-[45%] bg-[#FCAA0B] rounded-t-sm"></div>
+                                </div>
+                                <span class="text-[9px] text-[#718EBF]">Mon</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex items-end gap-1 h-[120px]">
+                                    <div class="w-[10px] h-[80%] bg-[#1A16F3] rounded-t-sm"></div>
+                                    <div class="w-[10px] h-[40%] bg-[#FCAA0B] rounded-t-sm"></div>
+                                </div>
+                                <span class="text-[9px] text-[#718EBF]">Tue</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex items-end gap-1 h-[120px]">
+                                    <div class="w-[10px] h-[55%] bg-[#1A16F3] rounded-t-sm"></div>
+                                    <div class="w-[10px] h-[75%] bg-[#FCAA0B] rounded-t-sm"></div>
+                                </div>
+                                <span class="text-[9px] text-[#718EBF]">Wed</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex items-end gap-1 h-[120px]">
+                                    <div class="w-[10px] h-[60%] bg-[#1A16F3] rounded-t-sm"></div>
+                                    <div class="w-[10px] h-[35%] bg-[#FCAA0B] rounded-t-sm"></div>
+                                </div>
+                                <span class="text-[9px] text-[#718EBF]">Thu</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex items-end gap-1 h-[120px]">
+                                    <div class="w-[10px] h-[70%] bg-[#1A16F3] rounded-t-sm"></div>
+                                    <div class="w-[10px] h-[85%] bg-[#FCAA0B] rounded-t-sm"></div>
+                                </div>
+                                <span class="text-[9px] text-[#718EBF]">Fri</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Invoices Sent -->
-                <div class="w-full flex flex-col items-end">
-                    <div class="w-[350px] mr-4">
-                        <h2 class="text-[22px] font-semibold text-[#333B69] font-['Inter',sans-serif] mb-5">
+                <!-- INVOICES SENT -->
+                <div class="w-full lg:w-auto flex-1">
+                    <div class="w-full">
+                        <h2 class="text-[18px] sm:text-[20px] lg:text-[22px] font-semibold text-[#333B69] font-['Inter',sans-serif] mb-3 sm:mb-4 lg:mb-5">
                             Invoices Sent
                         </h2>
 
-                        <div
-                            class="bg-white rounded-[25px] p-6 shadow-sm border border-[#DFEAF2] h-[360px] flex flex-col justify-between font-['Inter',sans-serif]">
-
+                        <!-- Desktop Version (lg:block) -->
+                        <div class="hidden lg:block bg-white rounded-[25px] p-6 shadow-sm border border-[#DFEAF2] h-[360px] flex flex-col justify-between font-['Inter',sans-serif]">
+                            <!-- Apple Store -->
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-4">
                                     <div class="w-12 h-12 bg-[#DCFAF8] rounded-2xl flex items-center justify-center">
@@ -337,7 +629,7 @@
                                 </div>
                                 <span class="text-[15px] font-medium text-[#718EBF]">$450</span>
                             </div>
-
+                            <!-- Michael -->
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-4">
                                     <div class="w-12 h-12 bg-[#FFF5D9] rounded-2xl flex items-center justify-center">
@@ -350,7 +642,7 @@
                                 </div>
                                 <span class="text-[15px] font-medium text-[#718EBF]">$160</span>
                             </div>
-
+                            <!-- Playstation -->
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-4">
                                     <div class="w-12 h-12 bg-[#E7EDFF] rounded-2xl flex items-center justify-center">
@@ -363,7 +655,7 @@
                                 </div>
                                 <span class="text-[15px] font-medium text-[#718EBF]">$1085</span>
                             </div>
-
+                            <!-- William -->
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-4">
                                     <div class="w-12 h-12 bg-[#FFE0EB] rounded-2xl flex items-center justify-center">
@@ -376,7 +668,118 @@
                                 </div>
                                 <span class="text-[15px] font-medium text-[#718EBF]">$90</span>
                             </div>
+                        </div>
 
+                        <!-- Tablet Version (hidden lg:block md:block) -->
+                        <div class="hidden md:block lg:hidden bg-white rounded-[20px] p-5 shadow-sm border border-[#DFEAF2] h-[300px] flex flex-col justify-between font-['Inter',sans-serif]">
+                            <!-- Apple Store -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-[#DCFAF8] rounded-xl flex items-center justify-center">
+                                        <img src="/imgs/icons/apple-store.png" class="w-5 h-5" alt="Apple">
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-semibold text-[#333B69]">Apple Store</p>
+                                        <p class="text-[12px] text-[#718EBF]">5h ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-[14px] font-medium text-[#718EBF]">$450</span>
+                            </div>
+                            <!-- Michael -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-[#FFF5D9] rounded-xl flex items-center justify-center">
+                                        <img src="/imgs/icons/person-yellow.png" class="w-5 h-5" alt="Michael">
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-semibold text-[#333B69]">Michael</p>
+                                        <p class="text-[12px] text-[#718EBF]">2 days ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-[14px] font-medium text-[#718EBF]">$160</span>
+                            </div>
+                            <!-- Playstation -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-[#E7EDFF] rounded-xl flex items-center justify-center">
+                                        <img src="/imgs/icons/playstation.png" class="w-5 h-5" alt="Playstation">
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-semibold text-[#333B69]">Playstation</p>
+                                        <p class="text-[12px] text-[#718EBF]">5 days ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-[14px] font-medium text-[#718EBF]">$1085</span>
+                            </div>
+                            <!-- William -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-[#FFE0EB] rounded-xl flex items-center justify-center">
+                                        <img src="/imgs/icons/person-red.png" class="w-5 h-5" alt="William">
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-semibold text-[#333B69]">William</p>
+                                        <p class="text-[12px] text-[#718EBF]">10 days ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-[14px] font-medium text-[#718EBF]">$90</span>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Version (md:hidden) -->
+                        <div class="md:hidden bg-white rounded-[20px] p-4 shadow-sm border border-[#DFEAF2] h-[280px] flex flex-col justify-between font-['Inter',sans-serif]">
+                            <!-- Apple Store -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 bg-[#DCFAF8] rounded-lg flex items-center justify-center">
+                                        <img src="/imgs/icons/apple-store.png" class="w-4 h-4" alt="Apple">
+                                    </div>
+                                    <div>
+                                        <p class="text-[13px] font-semibold text-[#333B69]">Apple Store</p>
+                                        <p class="text-[11px] text-[#718EBF]">5h ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-[13px] font-medium text-[#718EBF]">$450</span>
+                            </div>
+                            <!-- Michael -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 bg-[#FFF5D9] rounded-lg flex items-center justify-center">
+                                        <img src="/imgs/icons/person-yellow.png" class="w-4 h-4" alt="Michael">
+                                    </div>
+                                    <div>
+                                        <p class="text-[13px] font-semibold text-[#333B69]">Michael</p>
+                                        <p class="text-[11px] text-[#718EBF]">2 days ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-[13px] font-medium text-[#718EBF]">$160</span>
+                            </div>
+                            <!-- Playstation -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 bg-[#E7EDFF] rounded-lg flex items-center justify-center">
+                                        <img src="/imgs/icons/playstation.png" class="w-4 h-4" alt="Playstation">
+                                    </div>
+                                    <div>
+                                        <p class="text-[13px] font-semibold text-[#333B69]">Playstation</p>
+                                        <p class="text-[11px] text-[#718EBF]">5 days ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-[13px] font-medium text-[#718EBF]">$1085</span>
+                            </div>
+                            <!-- William -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 bg-[#FFE0EB] rounded-lg flex items-center justify-center">
+                                        <img src="/imgs/icons/person-red.png" class="w-4 h-4" alt="William">
+                                    </div>
+                                    <div>
+                                        <p class="text-[13px] font-semibold text-[#333B69]">William</p>
+                                        <p class="text-[11px] text-[#718EBF]">10 days ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-[13px] font-medium text-[#718EBF]">$90</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -384,66 +787,8 @@
         </main>
     </div>
 
-    <script>
-        function setActive(menuId) {
-            document.querySelectorAll('[data-menu-id]').forEach(item => {
-
-                item.classList.remove(
-                    "text-[#1814F3]",
-                    "bg-[#F0F2F9]"
-                );
-                item.classList.add("text-[#B1B1B1]");
-
-                item.querySelector('.normal-icon')?.classList.remove("hidden");
-                item.querySelector('.active-icon')?.classList.add("hidden");
-                item.querySelector('.active-line')?.classList.add("hidden");
-            });
-
-            const selected = document.querySelector(`[data-menu-id="${menuId}"]`);
-
-            if (selected) {
-                selected.classList.remove("text-[#B1B1B1]");
-                selected.classList.add(
-                    "text-[#1814F3]",
-                    "bg-[#F0F2F9]"
-                );
-
-                selected.querySelector('.normal-icon')?.classList.add("hidden");
-                selected.querySelector('.active-icon')?.classList.remove("hidden");
-                selected.querySelector('.active-line')?.classList.remove("hidden");
-            }
-        }
-
-        Promise.all([
-            fetch('/layouts/header.html').then(res => res.text()),
-            fetch('/layouts/sidebar.html').then(res => res.text())
-        ])
-            .then(([header, sidebar]) => {
-
-                // Inject HTML
-                document.getElementById('header-container').innerHTML = header;
-                document.getElementById('sidebar-container').innerHTML = sidebar;
-
-                // 🔥 Set Active Menu (PENTING setelah inject)
-                setActive('accounts');
-
-                // 🔥 Auto Title
-                const path = window.location.pathname.toLowerCase();
-                const pageName = path.split("/").pop().replace(".html", "");
-                const formattedName =
-                    pageName.charAt(0).toUpperCase() + pageName.slice(1);
-
-                const titleElement = document.getElementById('page-title');
-                if (titleElement) {
-                    titleElement.textContent = formattedName;
-                }
-
-                document.title = "BankDash - " + formattedName;
-
-                // 🔥 Tampilkan halaman setelah semua selesai
-                document.body.style.visibility = "visible";
-            });
-    </script>
+    <!-- Component Loader -->
+    <script src="/js/components.js"></script>
 </body>
 
 </html>

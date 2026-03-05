@@ -1,24 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bankku - Setting</title>
+    <title>BankDash - Settings</title>
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:wght@400;700&display=swap"
-        rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 
     <style>
+        /* Sembunyikan body segera mungkin */
         body {
-            visibility: hidden;
+            opacity: 0;
+            background: #F5F7FA;
         }
-    </style>
-    <style>
+
+        /* Overlay transisi */
+        #page-transition-overlay {
+            position: fixed;
+            inset: 0;
+            background: #F5F7FA;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 300ms ease;
+        }
+
+        /* Custom scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            overflow: hidden;
             background-color: #F5F7FA;
+            font-family: 'Inter', sans-serif;
         }
 
         .tab-active {
@@ -36,252 +76,209 @@
     </style>
 </head>
 
-<body class="flex min-h-screen">
+<body class="flex h-screen overflow-hidden">
+    <!-- SIDEBAR CONTAINER -->
+    <div id="sidebar-container" class="h-full flex-shrink-0"></div>
 
-    <div id="sidebar-container"></div>
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- HEADER CONTAINER -->
+        <div id="header-container" class="flex-shrink-0"></div>
 
-    <div class="flex-1">
-        <div id="header-container"></div>
-
-        <main class="p-8">
-            <div class="bg-white rounded-[25px] p-8 shadow-sm border border-[#DFEAF2] min-h-[600px]">
-
-                <div class="flex gap-12 border-b border-[#F4F5F7] mb-10">
+        <!-- SETTINGS CONTENT -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-5 lg:p-6">
+            <div class="bg-white rounded-[20px] md:rounded-[22px] lg:rounded-[25px] p-5 md:p-6 lg:p-8 shadow-sm border border-[#DFEAF2] min-h-[500px] md:min-h-[550px] lg:min-h-[600px]">
+                <!-- Tab Navigation -->
+                <div class="flex gap-4 md:gap-8 lg:gap-12 border-b border-[#F4F5F7] mb-6 md:mb-8 lg:mb-10 overflow-x-auto no-scrollbar pb-1">
                     <button onclick="switchTab('edit-profile')" id="tab-edit-profile"
-                        class="pb-3 text-[16px] font-medium tab-active transition-all">
+                        class="pb-2 md:pb-2.5 lg:pb-3 text-[14px] md:text-[15px] lg:text-[16px] font-medium tab-active transition-all whitespace-nowrap">
                         Edit Profile
                     </button>
                     <button onclick="switchTab('preferences')" id="tab-preferences"
-                        class="pb-3 text-[16px] font-medium tab-inactive transition-all hover:text-[#1814F3]">
+                        class="pb-2 md:pb-2.5 lg:pb-3 text-[14px] md:text-[15px] lg:text-[16px] font-medium tab-inactive transition-all hover:text-[#1814F3] whitespace-nowrap">
                         Preferences
                     </button>
                     <button onclick="switchTab('security')" id="tab-security"
-                        class="pb-3 text-[16px] font-medium tab-inactive transition-all hover:text-[#1814F3]">
+                        class="pb-2 md:pb-2.5 lg:pb-3 text-[14px] md:text-[15px] lg:text-[16px] font-medium tab-inactive transition-all hover:text-[#1814F3] whitespace-nowrap">
                         Security
                     </button>
                 </div>
 
+                <!-- Tab Contents -->
                 <div id="setting-content">
-
+                    <!-- EDIT PROFILE TAB -->
                     <div id="content-edit-profile" class="tab-content">
-                        <div class="flex flex-col lg:flex-row gap-12">
-                            <div class="relative w-[130px] h-[130px] flex-shrink-0">
-                                <!-- Ganti dengan icon dari folder imgs/icon -->
+                        <div class="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12">
+                            <!-- Profile Photo -->
+                            <div class="relative w-[100px] md:w-[115px] lg:w-[130px] h-[100px] md:h-[115px] lg:h-[130px] flex-shrink-0 mx-auto lg:mx-0">
                                 <img src="/imgs/icons/photo-profile.png" class="w-full h-full rounded-full object-cover"
                                     alt="Profile">
-
-                                <!-- Tombol edit dengan icon pensil -->
                                 <button
-                                    class="absolute bottom-1 right-1 bg-[#1814F3] p-2 rounded-full border-[3px] border-white">
-                                    <img src="/imgs/icons/edit-pencil.png" class="w-4 h-4" alt="Edit">
+                                    class="absolute bottom-1 right-1 bg-[#1814F3] p-1.5 md:p-1.5 lg:p-2 rounded-full border-[2px] md:border-[2px] lg:border-[3px] border-white">
+                                    <img src="/imgs/icons/edit-pencil.png" class="w-3 h-3 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4" alt="Edit">
                                 </button>
                             </div>
-                            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">Your Name</label>
+
+                            <!-- Form Fields -->
+                            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-x-8 lg:gap-y-6">
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Your Name</label>
                                     <input type="text" value="Charlene Reed"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF] focus:outline-none focus:border-[#1814F3]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF] focus:outline-none focus:border-[#1814F3]">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">User Name</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">User Name</label>
                                     <input type="text" value="Charlene Reed"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">Email</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Email</label>
                                     <input type="email" value="charlenereed@gmail.com"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">Password</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Password</label>
                                     <input type="password" value="**********"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">Date of Birth</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Date of Birth</label>
                                     <div class="relative">
                                         <select
-                                            class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF] appearance-none w-full">
+                                            class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF] appearance-none w-full">
                                             <option>25 January 1990</option>
                                         </select>
-                                        <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
-                                            <img src="/imgs/icons/drop-down.png" alt="dropdown" class="w-4 h-3">
+                                        <div class="absolute right-3 md:right-4 lg:right-5 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            <img src="/imgs/icons/drop-down.png" alt="dropdown" class="w-3 h-2 md:w-3.5 md:h-2.5 lg:w-4 lg:h-3">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">Present Address</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Present Address</label>
                                     <input type="text" value="San Jose, California, USA"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">Permanent Address</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Permanent Address</label>
                                     <input type="text" value="San Jose, California, USA"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">City</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">City</label>
                                     <input type="text" value="San Jose"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">Postal Code</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Postal Code</label>
                                     <input type="text" value="45962"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">Country</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Country</label>
                                     <input type="text" value="USA"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- PREFERENCES TAB -->
                     <div id="content-preferences" class="tab-content hidden">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                            <div class="flex flex-col gap-2">
-                                <label class="text-[15px] text-[#333B69]">Currency</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mb-6 md:mb-8 lg:mb-10">
+                            <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Currency</label>
                                 <input type="text" value="USD"
-                                    class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                    class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                             </div>
-                            <div class="flex flex-col gap-2">
-                                <label class="text-[15px] text-[#333B69]">Time Zone</label>
+                            <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Time Zone</label>
                                 <input type="text" value="(GMT-12:00) International Date Line West"
-                                    class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                    class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                             </div>
                         </div>
-                        <div class="space-y-6">
-                            <h3 class="text-[17px] font-semibold text-[#333B69] mb-4">Notification</h3>
-                            <div class="flex items-center gap-4">
+
+                        <div class="space-y-4 md:space-y-5 lg:space-y-6">
+                            <h3 class="text-[15px] md:text-[16px] lg:text-[17px] font-semibold text-[#333B69] mb-2 md:mb-3 lg:mb-4">Notification</h3>
+
+                            <!-- Switch 1 - ON -->
+                            <div class="flex items-center gap-3 md:gap-3 lg:gap-4">
                                 <div onclick="toggleSwitch(this)"
-                                    class="w-12 h-6 bg-[#16DBCC] rounded-full relative cursor-pointer transition-colors p-1">
-                                    <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
+                                    class="w-10 md:w-11 lg:w-12 h-5 md:h-5.5 lg:h-6 bg-[#16DBCC] rounded-full relative cursor-pointer transition-colors p-0.5 md:p-0.5 lg:p-1">
+                                    <div class="w-3.5 md:w-3.5 lg:w-4 h-3.5 md:h-3.5 lg:h-4 bg-white rounded-full absolute right-0.5 md:right-0.5 lg:right-1"></div>
                                 </div>
-                                <span class="text-[15px] text-[#333B69]">I send or receive digital currency</span>
+                                <span class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">I send or receive digital currency</span>
                             </div>
-                            <div class="flex items-center gap-4">
+
+                            <!-- Switch 2 - OFF -->
+                            <div class="flex items-center gap-3 md:gap-3 lg:gap-4">
                                 <div onclick="toggleSwitch(this)"
-                                    class="w-12 h-6 bg-[#CBD5E1] rounded-full relative cursor-pointer transition-colors p-1">
-                                    <div class="w-4 h-4 bg-white rounded-full absolute left-1"></div>
+                                    class="w-10 md:w-11 lg:w-12 h-5 md:h-5.5 lg:h-6 bg-[#CBD5E1] rounded-full relative cursor-pointer transition-colors p-0.5 md:p-0.5 lg:p-1">
+                                    <div class="w-3.5 md:w-3.5 lg:w-4 h-3.5 md:h-3.5 lg:h-4 bg-white rounded-full absolute left-0.5 md:left-0.5 lg:left-1"></div>
                                 </div>
-                                <span class="text-[15px] text-[#333B69]">I receive merchant order</span>
+                                <span class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">I receive merchant order</span>
                             </div>
-                            <div class="flex items-center gap-4">
+
+                            <!-- Switch 3 - ON -->
+                            <div class="flex items-center gap-3 md:gap-3 lg:gap-4">
                                 <div onclick="toggleSwitch(this)"
-                                    class="w-12 h-6 bg-[#16DBCC] rounded-full relative cursor-pointer transition-colors p-1">
-                                    <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
+                                    class="w-10 md:w-11 lg:w-12 h-5 md:h-5.5 lg:h-6 bg-[#16DBCC] rounded-full relative cursor-pointer transition-colors p-0.5 md:p-0.5 lg:p-1">
+                                    <div class="w-3.5 md:w-3.5 lg:w-4 h-3.5 md:h-3.5 lg:h-4 bg-white rounded-full absolute right-0.5 md:right-0.5 lg:right-1"></div>
                                 </div>
-                                <span class="text-[15px] text-[#333B69]">There are recommendation for my account</span>
+                                <span class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">There are recommendation for my account</span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- SECURITY TAB -->
                     <div id="content-security" class="tab-content hidden">
-                        <div class="space-y-8">
+                        <div class="space-y-6 md:space-y-7 lg:space-y-8">
+                            <!-- Two-factor Authentication -->
                             <div>
-                                <h3 class="text-[17px] font-semibold text-[#333B69] mb-4">Two-factor Authentication</h3>
-                                <div class="flex items-center gap-4">
+                                <h3 class="text-[15px] md:text-[16px] lg:text-[17px] font-semibold text-[#333B69] mb-2 md:mb-3 lg:mb-4">Two-factor Authentication</h3>
+                                <div class="flex items-center gap-3 md:gap-3 lg:gap-4">
                                     <div onclick="toggleSwitch(this)"
-                                        class="w-12 h-6 bg-[#16DBCC] rounded-full relative cursor-pointer transition-colors p-1">
-                                        <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
+                                        class="w-10 md:w-11 lg:w-12 h-5 md:h-5.5 lg:h-6 bg-[#16DBCC] rounded-full relative cursor-pointer transition-colors p-0.5 md:p-0.5 lg:p-1">
+                                        <div class="w-3.5 md:w-3.5 lg:w-4 h-3.5 md:h-3.5 lg:h-4 bg-white rounded-full absolute right-0.5 md:right-0.5 lg:right-1"></div>
                                     </div>
-                                    <span class="text-[15px] text-[#333B69]">Enable or disable two factor
-                                        authentication</span>
+                                    <span class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Enable or disable two factor authentication</span>
                                 </div>
                             </div>
-                            <div class="space-y-5 max-w-md">
-                                <h3 class="text-[17px] font-semibold text-[#333B69]">Change Password</h3>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">Current Password</label>
+
+                            <!-- Change Password -->
+                            <div class="space-y-4 md:space-y-4 lg:space-y-5 max-w-md">
+                                <h3 class="text-[15px] md:text-[16px] lg:text-[17px] font-semibold text-[#333B69]">Change Password</h3>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">Current Password</label>
                                     <input type="password" value="**********"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-[15px] text-[#333B69]">New Password</label>
+                                <div class="flex flex-col gap-1 md:gap-1.5 lg:gap-2">
+                                    <label class="text-[13px] md:text-[14px] lg:text-[15px] text-[#333B69]">New Password</label>
                                     <input type="password" value="**********"
-                                        class="border border-[#DFEAF2] rounded-[15px] px-5 py-3 text-[#718EBF]">
+                                        class="border border-[#DFEAF2] rounded-[12px] md:rounded-[13px] lg:rounded-[15px] px-3 md:px-4 lg:px-5 py-2 md:py-2.5 lg:py-3 text-[13px] md:text-[14px] lg:text-[15px] text-[#718EBF]">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex justify-end mt-12">
+                    <!-- Save Button -->
+                    <div class="flex justify-end mt-6 md:mt-8 lg:mt-12">
                         <button
-                            class="bg-[#1814F3] text-white px-16 py-3.5 rounded-[15px] font-semibold text-[16px] hover:bg-blue-800 transition-all shadow-md">
+                            class="bg-[#1814F3] text-white px-10 md:px-12 lg:px-16 py-2.5 md:py-3 lg:py-3.5 rounded-[12px] md:rounded-[13px] lg:rounded-[15px] font-semibold text-[14px] md:text-[15px] lg:text-[16px] hover:bg-blue-800 transition-all shadow-md">
                             Save
                         </button>
                     </div>
-
                 </div>
             </div>
         </main>
     </div>
 
-    <script>
-        function setActive(menuId) {
-            document.querySelectorAll('[data-menu-id]').forEach(item => {
-
-                item.classList.remove(
-                    "text-[#1814F3]",
-                    "bg-[#F0F2F9]"
-                );
-                item.classList.add("text-[#B1B1B1]");
-
-                item.querySelector('.normal-icon')?.classList.remove("hidden");
-                item.querySelector('.active-icon')?.classList.add("hidden");
-                item.querySelector('.active-line')?.classList.add("hidden");
-            });
-
-            const selected = document.querySelector(`[data-menu-id="${menuId}"]`);
-
-            if (selected) {
-                selected.classList.remove("text-[#B1B1B1]");
-                selected.classList.add(
-                    "text-[#1814F3]",
-                    "bg-[#F0F2F9]"
-                );
-
-                selected.querySelector('.normal-icon')?.classList.add("hidden");
-                selected.querySelector('.active-icon')?.classList.remove("hidden");
-                selected.querySelector('.active-line')?.classList.remove("hidden");
-            }
-        }
-
-        Promise.all([
-            fetch('/layouts/header.html').then(res => res.text()),
-            fetch('/layouts/sidebar.html').then(res => res.text())
-        ])
-            .then(([header, sidebar]) => {
-
-                // Inject HTML
-                document.getElementById('header-container').innerHTML = header;
-                document.getElementById('sidebar-container').innerHTML = sidebar;
-
-                // 🔥 Set Active Menu (PENTING setelah inject)
-                setActive('setting');
-
-                // 🔥 Auto Title
-                const path = window.location.pathname.toLowerCase();
-                const pageName = path.split("/").pop().replace(".html", "");
-                const formattedName =
-                    pageName.charAt(0).toUpperCase() + pageName.slice(1);
-
-                const titleElement = document.getElementById('page-title');
-                if (titleElement) {
-                    titleElement.textContent = formattedName;
-                }
-
-                document.title = "BankDash - " + formattedName;
-
-                // 🔥 Tampilkan halaman setelah semua selesai
-                document.body.style.visibility = "visible";
-            });
-    </script>
+    <!-- Component Loader -->
+    <script src="/js/components.js"></script>
 
     <script>
+        // Fungsi untuk switch tab di halaman settings
         function switchTab(tabName) {
-
             // Reset semua tab button
             document.querySelectorAll('[id^="tab-"]').forEach(tab => {
                 tab.classList.remove('tab-active');
@@ -300,12 +297,30 @@
             if (activeTab && activeContent) {
                 activeTab.classList.remove('tab-inactive');
                 activeTab.classList.add('tab-active');
-
                 activeContent.classList.remove('hidden');
             }
         }
-    </script>
 
+        // Fungsi untuk toggle switch
+        function toggleSwitch(element) {
+            const isOn = element.classList.contains('bg-[#16DBCC]');
+            const circle = element.querySelector('div:last-child');
+
+            if (isOn) {
+                // Matikan
+                element.classList.remove('bg-[#16DBCC]');
+                element.classList.add('bg-[#CBD5E1]');
+                circle.classList.remove('right-0.5', 'lg:right-1');
+                circle.classList.add('left-0.5', 'lg:left-1');
+            } else {
+                // Nyalakan
+                element.classList.remove('bg-[#CBD5E1]');
+                element.classList.add('bg-[#16DBCC]');
+                circle.classList.remove('left-0.5', 'lg:left-1');
+                circle.classList.add('right-0.5', 'lg:right-1');
+            }
+        }
+    </script>
 </body>
 
 </html>

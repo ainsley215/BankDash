@@ -1,4 +1,5 @@
-<div class="w-64 bg-white border-r border-[#E6EFF5] flex flex-col relative h-full">
+<!-- SIDEBAR COMPONENT - Tanpa head/body, hanya konten -->
+<div class="w-64 bg-white border-r border-[#E6EFF5] flex flex-col h-full">
   <!-- Header -->
   <div class="pt-8 px-5 pb-5">
     <div class="flex items-center space-x-2">
@@ -8,18 +9,18 @@
     </div>
   </div>
 
-  <!-- Daftar navigasi dengan jarak 16px antar menu -->
-  <nav class="flex-1 py-4 space-y-2 overflow-y-auto">
+  <!-- Navigasi -->
+  <nav class="flex-1 py-6 space-y-6 overflow-y-auto no-scrollbar">
     <!-- Dashboard -->
-    <div
-      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] font-['Inter',sans-serif] cursor-default">
+    <a href="#"
+      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] hover:bg-gray-100 transition-all">
       <img src="/imgs/icons/dashboard.png" class="w-[25px] h-[25px] mr-3">
       <span>Dashboard</span>
-    </div>
+    </a>
 
     <!-- Transactions -->
     <a href="/pages/transactions.html"
-      class="menu-item group flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] font-['Inter',sans-serif] rounded-lg hover:bg-gray-100 transition-all relative"
+      class="menu-item flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] rounded-lg hover:bg-gray-100 transition-all relative group"
       data-menu-id="transactions">
       <span class="active-line absolute left-0 top-0 h-full w-1 bg-[#1814F3] rounded-r-full hidden"></span>
       <img src="/imgs/icons/transactions.png" class="w-[25px] h-[25px] mr-3 normal-icon">
@@ -29,56 +30,56 @@
 
     <!-- Accounts -->
     <a href="/pages/accounts.html"
-      class="menu-item group flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] font-['Inter',sans-serif] rounded-lg hover:bg-gray-100 transition-all relative"
+      class="menu-item flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] rounded-lg hover:bg-gray-100 transition-all relative group"
       data-menu-id="accounts">
       <span class="active-line absolute left-0 top-0 h-full w-1 bg-[#1814F3] rounded-r-full hidden"></span>
-      <img src="/imgs/icons/accounts.png" alt="Accounts" class="w-[25px] h-[25px] mr-3 normal-icon">
-      <img src="/imgs/icons/accounts-active.png" alt="Accounts" class="w-[25px] h-[25px] mr-3 hidden active-icon">
+      <img src="/imgs/icons/accounts.png" class="w-[25px] h-[25px] mr-3 normal-icon">
+      <img src="/imgs/icons/accounts-active.png" class="w-[25px] h-[25px] mr-3 hidden active-icon">
       <span class="truncate">Accounts</span>
     </a>
 
     <!-- Investments -->
-    <div
-      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] font-['Inter',sans-serif] cursor-default">
+    <a href="#"
+      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] hover:bg-gray-100 transition-all">
       <img src="/imgs/icons/investments.png" class="w-[25px] h-[25px] mr-3">
       <span>Investments</span>
-    </div>
+    </a>
 
     <!-- Credit Cards -->
-    <div
-      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] font-['Inter',sans-serif] cursor-default">
+    <a href="#"
+      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] hover:bg-gray-100 transition-all">
       <img src="/imgs/icons/credit-cards.png" class="w-[25px] h-[25px] mr-3">
       <span>Credit Cards</span>
-    </div>
+    </a>
 
     <!-- Loans -->
-    <div
-      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] font-['Inter',sans-serif] cursor-default">
+    <a href="#"
+      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] hover:bg-gray-100 transition-all">
       <img src="/imgs/icons/loans.png" class="w-[25px] h-[25px] mr-3">
       <span>Loans</span>
-    </div>
+    </a>
 
     <!-- Services -->
-    <div
-      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] font-['Inter',sans-serif] cursor-default">
+    <a href="#"
+      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] hover:bg-gray-100 transition-all">
       <img src="/imgs/icons/services.png" class="w-[25px] h-[25px] mr-3">
       <span>Services</span>
-    </div>
+    </a>
 
     <!-- My Privileges -->
-    <div
-      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] font-['Inter',sans-serif] cursor-default">
+    <a href="#"
+      class="flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] hover:bg-gray-100 transition-all">
       <img src="/imgs/icons/my-privileges.png" class="w-[25px] h-[25px] mr-3">
       <span>My Privileges</span>
-    </div>
+    </a>
 
     <!-- Setting -->
     <a href="/pages/setting.html"
-      class="menu-item group flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] font-['Inter',sans-serif] rounded-lg hover:bg-gray-100 transition-all relative"
+      class="menu-item flex items-center px-8 py-3 text-[18px] font-medium text-[#B1B1B1] rounded-lg hover:bg-gray-100 transition-all relative group"
       data-menu-id="setting">
       <span class="active-line absolute left-0 top-0 h-full w-1 bg-[#1814F3] rounded-r-full hidden"></span>
       <img src="/imgs/icons/setting.png" class="w-[25px] h-[25px] mr-3 normal-icon">
-      <img src="/imgs/icons/setting-active.png" alt="Setting" class="w-[25px] h-[25px] mr-3 hidden active-icon">
+      <img src="/imgs/icons/setting-active.png" class="w-[25px] h-[25px] mr-3 hidden active-icon">
       <span>Setting</span>
     </a>
   </nav>
