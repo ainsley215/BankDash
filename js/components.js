@@ -94,7 +94,7 @@ const BankDash = {
         const menuToggle = document.createElement('button');
         menuToggle.id = 'menu-toggle';
         menuToggle.className = 'lg:hidden fixed top-7 left-4 z-40 p-0 bg-transparent border-none shadow-none hover:opacity-80 transition-opacity';
-        menuToggle.innerHTML = `<img src="/imgs/icons/hamburger.png" alt="Menu" class="w-3 h-3">`;
+        menuToggle.innerHTML = `<img src="../imgs/icons/hamburger.png" alt="Menu" class="w-3 h-3">`;
         document.body.appendChild(menuToggle);
     },
 
