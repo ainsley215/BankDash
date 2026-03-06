@@ -6,12 +6,31 @@
     <title>BankDash</title>
 
     <script>
-        // Deteksi environment
-        if (window.location.hostname.includes('github.io')) {
-            window.location.href = '/BankDash/pages/transactions.html';
-        } else {
-            window.location.href = 'pages/transactions.html';
-        }
+        (function() {
+            const currentPath = window.location.pathname;
+            const desiredPath = '/BankDash/pages/transactions.html';
+            
+            if (currentPath.includes('/pages/transactions.html')) {
+                console.log('Already on transactions page');
+                return;
+            }
+            
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            
+            let cleanPath = currentPath.replace('/BankDash', '');
+            
+            if (isGitHubPages) {
+                if (!currentPath.includes('/BankDash/')) {
+                    window.location.href = '/BankDash/pages/transactions.html';
+                } else if (!currentPath.includes('/pages/transactions.html')) {
+                    window.location.href = '/BankDash/pages/transactions.html';
+                }
+            } else {
+                if (!currentPath.includes('/pages/transactions.html')) {
+                    window.location.href = 'pages/transactions.html';
+                }
+            }
+        })();
     </script>
 </head>
 
