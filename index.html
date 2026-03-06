@@ -5,12 +5,18 @@
     <meta charset="UTF-8">
     <title>BankDash</title>
 
-    <!-- redirect ke halaman utama -->
-    <meta http-equiv="refresh" content="0; url=../pages/transactions.html">
+    <script>
+        // Deteksi environment
+        if (window.location.hostname.includes('github.io')) {
+            window.location.href = '/BankDash/pages/transactions.html';
+        } else {
+            window.location.href = 'pages/transactions.html';
+        }
+    </script>
 </head>
 
 <body>
+    <p>Redirecting to BankDash...</p>
 </body>
 
 </html>
-
