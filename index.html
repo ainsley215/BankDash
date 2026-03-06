@@ -13,3 +13,28 @@
 </body>
 
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BankDash</title>
+
+    <script>
+        // Deteksi environment
+        if (window.location.hostname.includes('github.io')) {
+            // GitHub Pages
+            window.location.href = '/BankDash/pages/transactions.html';
+        } else {
+            // Lokal
+            window.location.href = 'pages/transactions.html';
+        }
+    </script>
+</head>
+
+<body>
+    <p>Redirecting to BankDash...</p>
+</body>
+
+</html>
