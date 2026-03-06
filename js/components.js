@@ -5,8 +5,8 @@
 const BankDash = {
     // Konfigurasi
     config: {
-        componentsPath: '/layouts/',
-        iconsPath: '/imgs/icons/',
+        componentsPath: '../layouts/',
+        iconsPath: '../imgs/icons/',
         transitionSpeed: 300
     },
 
@@ -101,87 +101,56 @@ const BankDash = {
     /**
      * PERBAIKAN: Setup toggle sidebar dengan update lebar container
      */
+    /**
+ * PERBAIKAN: Setup toggle sidebar
+ */
     setupSidebarToggle: function () {
-        const sidebarContainer = document.getElementById('sidebar-container');
-        const sidebar = sidebarContainer?.firstElementChild;
-        const overlay = document.getElementById('overlay');
-        const menuToggle = document.getElementById('menu-toggle');
+    console.log('Setting up sidebar toggle...');
 
-        if (!sidebarContainer || !sidebar || !overlay || !menuToggle) return;
+    const sidebar = document.querySelector('#sidebar-container > div');
+    const overlay = document.getElementById('overlay');
+    const menuToggle = document.getElementById('menu-toggle');
 
-        // Pastikan sidebar punya class transform
-        if (!sidebar.classList.contains('transform')) {
-            sidebar.classList.add('transform', 'transition-transform', 'duration-300', 'ease-in-out');
+    if (!sidebar || !overlay || !menuToggle) {
+        console.error('Sidebar elements not found');
+        return;
+    }
+
+    const openSidebar = () => {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+
+        overlay.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    };
+
+    const closeSidebar = () => {
+        sidebar.classList.remove('translate-x-0');
+        sidebar.classList.add('-translate-x-full');
+
+        overlay.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    };
+
+    const toggleSidebar = () => {
+        if (sidebar.classList.contains('-translate-x-full')) {
+            openSidebar();
+        } else {
+            closeSidebar();
         }
+    };
 
-        // Initial state di mobile
-        if (window.innerWidth < 1024) {
-            sidebar.classList.add('-translate-x-full');
-            sidebarContainer.classList.add('w-0');
-            sidebarContainer.classList.remove('w-64');
+    menuToggle.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeSidebar();
         }
+    });
 
-        // Fungsi untuk membuka sidebar
-        const openSidebar = () => {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-            document.body.classList.add('overflow-hidden');
-
-            // Update lebar container
-            if (window.innerWidth < 1024) {
-                sidebarContainer.classList.add('w-64');
-                sidebarContainer.classList.remove('w-0');
-            }
-        };
-
-        // Fungsi untuk menutup sidebar
-        const closeSidebar = () => {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-
-            // Update lebar container
-            if (window.innerWidth < 1024) {
-                sidebarContainer.classList.add('w-0');
-                sidebarContainer.classList.remove('w-64');
-            }
-        };
-
-        // Event listeners
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (sidebar.classList.contains('-translate-x-full')) {
-                openSidebar();
-            } else {
-                closeSidebar();
-            }
-        });
-
-        overlay.addEventListener('click', closeSidebar);
-        sidebar.addEventListener('click', (e) => e.stopPropagation());
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !sidebar.classList.contains('-translate-x-full') && window.innerWidth < 1024) {
-                closeSidebar();
-            }
-        });
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 1024) {
-                // Desktop
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
-                sidebarContainer.classList.add('w-64');
-                sidebarContainer.classList.remove('w-0');
-            } else {
-                // Mobile
-                sidebar.classList.add('-translate-x-full');
-                sidebarContainer.classList.add('w-0');
-                sidebarContainer.classList.remove('w-64');
-            }
-        });
-    },
+    console.log('Sidebar toggle ready');
+},
 
     // Load components
     loadComponents: async function () {
@@ -205,7 +174,7 @@ const BankDash = {
         const path = window.location.pathname.toLowerCase();
         let activeMenu = 'dashboard';
 
-        if (path.includes('transactions')) activeMenu = 'index';
+        if (path.includes('transactions')) activeMenu = 'transactions';
         else if (path.includes('accounts')) activeMenu = 'accounts';
         else if (path.includes('investments')) activeMenu = 'investments';
         else if (path.includes('credit-cards')) activeMenu = 'credit-cards';
